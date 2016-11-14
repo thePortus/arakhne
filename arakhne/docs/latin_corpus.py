@@ -16,7 +16,7 @@ class LatinCorpus(CLTKCorpus):
         self.update(None, None)
         return self.__class__(new_docs, **self.settings)
 
-    def jv_replace(self):
+    def normalize(self):
         new_docs = []
         counter = 0
         for doc in self.data:

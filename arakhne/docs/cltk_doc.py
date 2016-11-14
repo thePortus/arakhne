@@ -2,7 +2,6 @@ from nltk.text import Text
 from cltk.tokenize.word import nltk_tokenize_words
 from cltk.tokenize.sentence import TokenizeSentence
 from cltk.stem.lemma import LemmaReplacer
-from cltk.corpus.utils.formatter import tlg_plaintext_cleanup
 from cltk.prosody.greek.scanner import Scansion as GreekScansion
 from cltk.prosody.latin.scanner import Scansion as LatinScansion
 from cltk.text_reuse.levenshtein import Levenshtein
@@ -31,15 +30,6 @@ class CLTKDoc(NLTKDoc):
                 self.data.lower(),
                 return_string=return_string,
                 return_raw=return_raw
-            ),
-            metadata=self.metadata,
-            stats=self.stats
-        )
-
-    def tlgu_cleanup(self, rm_punctuation=True, rm_periods=False):
-        return self.__class__(
-            data=tlg_plaintext_cleanup(
-                self.data, rm_punctuation=rm_punctuation, rm_periods=rm_periods
             ),
             metadata=self.metadata,
             stats=self.stats
