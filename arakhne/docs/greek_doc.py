@@ -1,6 +1,7 @@
 from .cltk_doc import CLTKDoc
 from cltk.corpus.utils.formatter import cltk_normalize
 from cltk.tag.pos import POSTag
+from cltk.corpus.utils.formatter import tlg_plaintext_cleanup
 
 
 class GreekDoc(CLTKDoc):
@@ -11,6 +12,15 @@ class GreekDoc(CLTKDoc):
             cltk_normalize(str(self.data)),
             self.metadata,
             self.stats
+        )
+
+    def tlgu_cleanup(self, rm_punctuation=True, rm_periods=False):
+        return self.__class__(
+            data=tlg_plaintext_cleanup(
+                self.data, rm_punctuation=rm_punctuation, rm_periods=rm_periods
+            ),
+            metadata=self.metadata,
+            stats=self.stats
         )
 
     def tag(self, mode='123'):
