@@ -1,0 +1,10 @@
+*.egg-info
+*.pyc
+*.sublime-*
+dist/
+build/
+__pycache__
+.pypirc
+MANIFEST
+*.coverage
+.DS_Store
