@@ -29,6 +29,7 @@ class CorporaDownloader:
         return True
 
     def cltk(self):
+        print('Downloading', self.language, 'corpora...')
         from cltk.corpus.utils.importer import CorpusImporter
         try:
             corpus_importer = CorpusImporter(self.language)
@@ -45,3 +46,4 @@ class CorporaDownloader:
         # If there is any problem creating the importer or listing corpora
         except:
             print('Error: Unknown error importing corpora.')
+        print('Corpora imported successfully!')
