@@ -22,7 +22,7 @@ class LatinCorpus(CLTKCorpus):
         for doc in self.data:
             counter += 1
             self.update('Normalizing j/i and v/u', counter)
-            new_docs.append(doc.jv_replace())
+            new_docs.append(doc.normalize())
         self.update(None, None)
         return self.__class__(new_docs, **self.settings)
 

@@ -22,7 +22,7 @@ class LatinDoc(CLTKDoc):
             self.stats
         )
 
-    def jv_replace(self):
+    def normalize(self):
         return self.__class__(
             JVReplacer().replace(self.data),
             self.metadata,

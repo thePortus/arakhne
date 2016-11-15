@@ -32,3 +32,47 @@ class BaseCorpusUnitTest(unittest.TestCase):
         ]).re_search('amet')
         compare = BaseDoc('Arma virumque cano')
         return self.assertNotEqual(test[0], compare)
+
+    def test_rm_lines(self):
+        test = BaseCorpus([
+            BaseDoc('Lorem\nipsum'),
+            BaseDoc('Dolor sit'),
+            BaseDoc('amet.')
+        ]).rm_lines()
+        compare = BaseDoc('Lorem ipsum')
+        return self.assertEqual(test[0], compare)
+
+    def test_rm_nonchar(self):
+        test = BaseCorpus([
+            BaseDoc('Lorem 3%ipsum'),
+            BaseDoc('Dolor sit'),
+            BaseDoc('amet.')
+        ]).rm_nonchar()
+        compare = BaseDoc('Lorem ipsum')
+        return self.assertEqual(test[0], compare)
+
+    def test_rm_edits(self):
+        test = BaseCorpus([
+            BaseDoc('Lorem[ ipsum]'),
+            BaseDoc('Dolor sit'),
+            BaseDoc('amet.')
+        ]).rm_edits()
+        compare = BaseDoc('Lorem')
+        return self.assertEqual(test[0], compare)
+
+    def test_rm_spaces(self):
+        test = BaseCorpus([
+            BaseDoc('Lorem  ipsum'),
+            BaseDoc('Dolor sit'),
+            BaseDoc('amet.')
+        ]).rm_spaces()
+        compare = BaseDoc('Lorem ipsum')
+        return self.assertEqual(test[0], compare)
+
+    def test_update(self):
+        BaseCorpus([
+            BaseDoc('Lorem  ipsum'),
+            BaseDoc('Dolor sit'),
+            BaseDoc('amet.')
+        ]).update('Update message test', 1, 'ignore')
+        return self.assertEqual(True, True)

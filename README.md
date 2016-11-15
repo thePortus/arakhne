@@ -21,31 +21,26 @@ As Latinists well know, a *textus* is literally 'something woven.' By unraveling
 
 ---
 
-### Contents
+## Contents
 * [Installation](#installation)
 * [Basic Use](#basic-use)
+* [Downloading Corpora](#downloading-corpora)
 * [Text-Scrubbing](#text-scrubbing)
 * [Textual Analytics](#textual-analytics)
 * [License](#license)
 
 ---
 
-### Installation
+## Installation
 
 ``` python
 pip install arakhne
 ```
 
-### Getting Started
-``` python
-# TBD
-```
-
 ---
 
-### Basic Use
+## Basic Use
 
-*Further tools and methods to be added*
 ``` python
 from arakhne import Arakhne
 
@@ -61,7 +56,20 @@ sample.save.csv('path/to/save.csv')
 
 ---
 
-### Text Scrubbing
+## Downloading Corpora
+``` python
+
+# Use Arakhne to launch the NLTK downloader to get trainer sets
+Arakhne('english').downloader.nltk()
+
+# Use Arakhne to download all of the CLTK corpora for a language
+Arakhne('greek').downloader.cltk()
+Arakhne('latin').downloader.cltk()
+
+```
+---
+
+## Text Scrubbing
 
 *Further tools and methods to be added*
 ``` python
@@ -98,7 +106,7 @@ sample = sample.normalize()
 
 ---
 
-### Textual Analytics
+## Textual Analytics
 
 *Further tools and methods to be added*
 ``` python
@@ -158,4 +166,5 @@ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE O
+OUT OF OR IN CONNECTION WITH THE SOFTWARE.
+```

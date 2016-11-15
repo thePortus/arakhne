@@ -32,3 +32,11 @@ class GreekDocUnitTest(unittest.TestCase):
     def test_compare_levenstein(self):
         GreekDoc('ὁ δὲ δῆμος.').compare_levenshtein('ὁ δὲ Πειραιεὺς δῆμος.')
         return True
+
+    def test_normalize(self):
+        GreekDoc('ὁ δὲ δῆμος.').normalize()
+        return True
+
+    def test_tag(self):
+        GreekDoc('ὁ δὲ δῆμος.').tag()
+        return True
