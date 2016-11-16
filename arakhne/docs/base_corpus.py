@@ -168,6 +168,7 @@ class CorpusImporter:
                     metadata[meta_field] = csv_record[meta_field]
                 # Build doc with text & metadata and append
                 self.corpus = self.corpus.mk_doc(text, metadata=metadata)
+        print("Corpus loaded successfully.")
         return self.corpus
 
 
@@ -224,5 +225,6 @@ class CorpusExporter:
                 for meta_field in self.corpus.settings['meta_fields']:
                     export_record[meta_field] = doc.metadata[meta_field]
                 csv_writer.writerow(export_record)
+        print('Corpus saved sucessfully.')
         # Return the corpus
         return self.corpus

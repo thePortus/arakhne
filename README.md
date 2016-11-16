@@ -23,10 +23,14 @@ As Latinists well know, a *textus* is literally 'something woven.' By unraveling
 
 ## Contents
 * [Installation](#installation)
-* [Basic Use](#basic-use)
-* [Downloading Corpora](#downloading-corpora)
-* [Text-Scrubbing](#text-scrubbing)
-* [Textual Analytics](#textual-analytics)
+* [Sample Data](#sample-data)
+* [Loading](#loading)
+* [Accessing Data](#accessing-data)
+* [Saving](#saving)
+* [Downloading Trainer Corpora](#downloading-trainer-corpora)
+* [Text Tools: All Languages](#text-tools-all-languages)
+* [Text Tools: Greek](#text-tools-greek)
+* [Text Tools: Latin](#text-tools-latin)
 * [License](#license)
 
 ---
@@ -39,107 +43,180 @@ pip install arakhne
 
 ---
 
-## Basic Use
+## Sample Data
 
+Below is the sample raw corpus, used in the following examples.
+``` bash
+# ========sample.csv ========
+"id","title","text"
+"1","Card 1","αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,\n\n185 βὰν",
+"2","Card 2","200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
+"3","Card 3","... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+```
+
+
+# Loading
+
+Importing Arakhne
 ``` python
-from arakhne import Arakhne
+>>> from arakhne import Arakhne
+```
 
-# Load .csv file containing as an Arakhne corpus object
-sample = Arakhne('latin').corpus.load.csv('path/to/sample.csv')
+Setting language and loading a CSV
+``` python
+>>> sample = Arakhne('greek').corpus.load.csv('sample.csv')
+Loading /path/to/sample.csv
+Corpus loaded successfully.
+```
 
-# Perform some operation and store the resulting corpus
-sample = sample.some_scrubbing_method()
+Specifying a custom column containing text data
+``` python
+>>> sample = Arakhne('greek').corpus.load.csv('sample.csv', text_col='a_col')
+```
 
-# Export the results to a .csv
-sample.save.csv('path/to/save.csv')
+# Accessing Data
+
+Looping through text documents
+``` python
+>>> for doc in sample:
+>>>     print(doc)
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,\n\n185 βὰν"
+"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
+"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+```
+Accessing document metadata
+``` python
+>>> for doc in sample:
+>>>     print(doc.metadata)
+{"id": "1", "title": "Card 1"}
+{"id": "2", "title": "Card 2"}
+{"id": "3", "title": "Card 3"}
+```
+
+# Saving
+Saving corpus data (only CSVs at the moment)
+``` python
+>>> sample.save.csv('sample_scrubbed.csv')
+Corpus saved sucessfully.
+```
+Overwriting an existing file
+``` python
+>>> sample.save.csv('sample.csv', overwrite=True)
+Corpus saved sucessfully.
 ```
 
 ---
 
-## Downloading Corpora
+## Downloading Trainer Corpora
+
+Use Arakhne to do a one-time download of NLTK & CLTK trainer sets
 ``` python
-
-# Use Arakhne to launch the NLTK downloader to get trainer sets
-Arakhne('english').downloader.nltk()
-
-# Use Arakhne to download all of the CLTK corpora for a language
-Arakhne('greek').downloader.cltk()
-Arakhne('latin').downloader.cltk()
-
-```
----
-
-## Text Scrubbing
-
-*Further tools and methods to be added*
-``` python
-# ==============
-# ALL LANGUAGES
-# ==============
-# Remove endline chars and collapse each text to a single line
-sample = sample.rm_lines()
-# Delete editorial statements (i.e. text inside ()[]{}<>, etc).
-sample = sample.rm_edits()
-# Filter non-language specific alphabetic characters
-sample = sample.rm_nonchar()
-# Collapse blocks of redundant whitespace into a single space
-sample = sample.rm_spaces()
-# Methods can be chained to perform multi-operation statements
-sample = sample.rm_lines().rm_edits().rm_nonchar().rm_spaces()
-
-# ==============
-# GREEK-ONLY
-# ==============
-# Normalize smoothes over some Greek accent encoding issues
-sample = sample.normalize()
-# CLTK's TLGU Cleanup auto-scrubs Greek text for analysis
-sample = sample.tlgu_clean_up()
-
-# ==============
-# Latin-ONLY
-# ==============
-# Macronize adds macrons to long vowels
-sample = sample.macronize()
-# Normalize swaps i's in for j's and u's in for v's
-sample = sample.normalize()
+>>> Arakhne('english').downloader.nltk()
+>>> Arakhne('greek').downloader.cltk()
+>>> Arakhne('latin').downloader.cltk()
 ```
 
 ---
 
-## Textual Analytics
+## Text Tools All Languages
 
-*Further tools and methods to be added*
+Remove endline chars, collapsing each text to a single line
 ``` python
-# ==============
-# ALL LANGUAGES
-# ==============
-# Returns new corpus with only matching docs. Can take Regex expressions
-filtered_sample = sample.re_search('sample search pattern')
+>>> sample = sample.rm_lines()
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,  185 βὰν"
+"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
+"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+```
+Delete editorial statements (i.e. text inside ()[]{}<>, etc).
+``` python
+>>> sample = sample.rm_edits()
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,\n\n185 βὰν"
+"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς ἐδητύος ἠδὲ ποτῆτος"
+"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+```
+Filter non-language specific alphabetic characters
+``` python
+>>> sample = sample.rm_nonchar()
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο, βὰν"
+"ἀλλ᾽ ἀγέλαστος,  ἄπαστυςος ἐδητύος ἠδὲ ποτῆτος"
+" τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα"
+```
+Collapse blocks of redundant whitespace and trim leading/trailing spaces
+``` python
+>>> sample = sample.rm_spaces()
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος Κελεοῖο,\n\n185 βὰν"
+"200ἀλλ᾽ ἀγέλαστος, ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
+"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+```
+Filter out docs not containing a Regex search pattern
+``` python
+>>> sample = sample.re_search('μύθων')
+"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+```
+Methods can be chained to perform multi-operation statements
+``` python
+>>>sample = sample.rm_lines().rm_edits().rm_nonchar().rm_spaces()
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος Κελεοῖο, βὰν"
+"ἀλλ᾽ ἀγέλαστος, ἄπαστυς ἐδητύος ἠδὲ ποτῆτος"
+"τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα"
+```
 
-# ==============
-# GREEK OR LATIN
-# ==============
-# Lemmatize each text, making it easier to search TAKES A LONG TIME
+## Text Tools Greek
+
+Normalize Greek accent issues, otherwise leaving text unchanged
+``` python
+>>> sample = sample.normalize()
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,  185 βὰν"
+"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
+"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+```
+CLTK's TLGU Cleanup auto-scrubs Greek text for analysis
+``` python
+>>> sample = sample.tlgu_clean_up()
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος Κελεοῖο, βὰν"
+"ἀλλ᾽ ἀγέλαστος, ἄπαστυς ἐδητύος ἠδὲ ποτῆτος"
+"τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα"
+```
+Lemmatize each text, making it easier to search TAKES A LONG TIME
+``` python
 sample = sample.lemmatize()
-# Performs scansion, returning lists of lines containing beat information
-scanned_lines = sample.scansion()
-# Generates a list of lists of strings with entities (TO BE EXPANDED)
-entity_list = sample.entities()
-
-# ==============
-# GREEK-ONLY
-# ==============
-# Returns a list of lists of tuple pairs of the word/part of speech
-parsed_words = sample.tag()
-
-# ==============
-# Latin-ONLY
-# ==============
-# Further poetic tool on top of scansion, clausulae analysis
-clausulae = sample.clausulae()
-# Stemmify is alternative to lemmatization, reducing words to stems
-sample = sample.stemmify()
+"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,  185 βὰν"
+"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
+"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
 ```
+Perform scansion, returning lists of lines containing beat information
+``` python
+>>> scanned_lines = sample.scansion()
+```
+Generate a list of lists of strings with entities (TO BE EXPANDED)
+``` python
+>>> entity_list = sample.entities()
+```
+Returns a list of lists of tuple pairs of the word/part of speech
+``` python
+>>> parsed_words = sample.tag()
+```
+
+## Text Tools Latin
+
+Macronize adds macrons to long vowels
+``` python
+>>> sample = sample.macronize()
+```
+Normalize swaps i's in for j's and u's in for v's
+``` python
+>>> sample = sample.normalize()
+```
+Further poetic tool on top of scansion, clausulae analysis
+``` python
+>>> clausulae = sample.clausulae()
+```
+Stemmify is alternative to lemmatization, reducing words to stems
+``` python
+>>> sample = sample.stemmify()
+```
+
+---
 
 *Further tools and methods to be added*
 
