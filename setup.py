@@ -6,8 +6,8 @@ except ImportError:
 config = {
     'name': "arakhne",
     'packages': ["arakhne"],
-    'install_requires': ["nltk", "cltk", "nose"],
-    'version': "0.2.0",
+    'install_requires': ["nltk", "cltk"],
+    'version': "0.2.1",
     'description': "CLTK Wrapper Functions for Greek/Latin Text Analysis",
     'author': "David J. Thomas",
     'author_email': "dave.a.base@gmail.com",

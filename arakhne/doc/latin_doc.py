@@ -18,22 +18,19 @@ class LatinDoc(CLTKDoc):
             return False
         return self.__class__(
             Macronizer(tagger=mode).macronize_text(self.data),
-            self.metadata,
-            self.stats
+            self.metadata
         )
 
     def normalize(self):
         return self.__class__(
             JVReplacer().replace(self.data),
-            self.metadata,
-            self.stats
+            self.metadata
         )
 
     def stemmify(self):
         return self.__class__(
             Stemmer().stem(self.data.lower()),
-            self.metadata,
-            self.stats
+            self.metadata
         )
 
     def clausulae(self):

@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from ..base_doc import BaseDoc
@@ -42,12 +43,12 @@ class BaseCorpusUnitTest(unittest.TestCase):
         compare = BaseDoc('Lorem ipsum')
         return self.assertEqual(test[0], compare)
 
-    def test_rm_nonchar(self):
+    def test_rm_nonchars(self):
         test = BaseCorpus([
             BaseDoc('Lorem 3%ipsum'),
             BaseDoc('Dolor sit'),
             BaseDoc('amet.')
-        ]).rm_nonchar()
+        ]).rm_nonchars()
         compare = BaseDoc('Lorem ipsum')
         return self.assertEqual(test[0], compare)
 
@@ -76,3 +77,4 @@ class BaseCorpusUnitTest(unittest.TestCase):
             BaseDoc('amet.')
         ]).update('Update message test', 1, 'ignore')
         return self.assertEqual(True, True)
+"""

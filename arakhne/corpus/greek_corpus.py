@@ -1,10 +1,8 @@
 from .cltk_corpus import CLTKCorpus
-from .greek_doc import GreekDoc
 
 
 class GreekCorpus(CLTKCorpus):
     language = 'greek'
-    doc = GreekDoc
 
     def normalize(self):
         new_docs = []

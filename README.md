@@ -11,13 +11,15 @@
 
 ---
 
+Scrub and analyze entire files of Greek and Latin text data, working with the corpus just like a list of documents.
+
 Powered by the [NLTK](http://www.nltk.org/) and [CLTK](https://github.com/cltk/cltk) modules, Arakhne attemps to make the scrubbing and analysis of mass volumes of texts accessible to the Ancient Scholar with minimal Python training. The goal of Arakhne is to allow the user to perform the greatest number of changes in the fewest number of commands possible, all while maintaining semantic clarity.
 
 I created Arakhne Text Loom so that my students, who have limited programming experience, could load, scrub, analyze, and save a large corpus of texts in a few short lines of code.
 
 The [Natural Language Toolkit](https://nltk.org) has enabled modern text analysis for some years now. Recently, the amazing [Classical Language Toolkit, or CLTK](http://cltk.org), has brought machine language processing to ancient studies. The CLTK library powers the majority of operations behind this module. However, CLTK operations focus on analyzing single bits of text (or other data focused on a single 'document').
 
-As Latinists well know, a *textus* is literally 'something woven.' By unraveling a corpus into a series of documents, words, entities, and the threads that bind them together.
+As Latinists well know, a *textus* is literally 'something woven.' With Arakhne, you can unravel a corpus and explore the documents, words, people, and places that bind the documents together.
 
 ---
 
@@ -136,7 +138,7 @@ Delete editorial statements (i.e. text inside ()[]{}<>, etc).
 ```
 Filter non-language specific alphabetic characters
 ``` python
->>> sample = sample.rm_nonchar()
+>>> sample = sample.rm_nonchars()
 "αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο, βὰν"
 "ἀλλ᾽ ἀγέλαστος,  ἄπαστυςος ἐδητύος ἠδὲ ποτῆτος"
 " τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα"
@@ -155,7 +157,7 @@ Filter out docs not containing a Regex search pattern
 ```
 Methods can be chained to perform multi-operation statements
 ``` python
->>>sample = sample.rm_lines().rm_edits().rm_nonchar().rm_spaces()
+>>>sample = sample.rm_lines().rm_edits().rm_nonchars().rm_spaces()
 "αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος Κελεοῖο, βὰν"
 "ἀλλ᾽ ἀγέλαστος, ἄπαστυς ἐδητύος ἠδὲ ποτῆτος"
 "τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα"

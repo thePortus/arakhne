@@ -39,8 +39,7 @@ class NLTKDoc(BaseDoc):
             lemmata.append(lemmatized_word)
         return self.__class__(
             " ".join(lemmata),
-            self.metadata,
-            self.stats
+            self.metadata
         )
 
     def rm_stopwords(self, stoplist=[]):
@@ -59,8 +58,7 @@ class NLTKDoc(BaseDoc):
         # return rejoined word
         return self.__class__(
             " ".join(filtered_words),
-            self.metadata,
-            self.stats
+            self.metadata
         )
 
     def ngrams(self, gram_size=3):

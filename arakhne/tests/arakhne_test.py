@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import Arakhne
@@ -12,3 +13,4 @@ class ArakhneUnitTest(unittest.TestCase):
         )
         compare = LatinCorpus
         return self.assertEqual(type(test), compare)
+"""

@@ -3,16 +3,19 @@ import csv
 import sys
 from collections import UserList
 
-from .base_doc import BaseDoc
+from .. import core
 
 
 class BaseCorpus(UserList):
     language = None
-    doc = BaseDoc
+    doc = None
     settings = {}
 
     def __init__(self, docs=None, *args, **kwargs):
         super().__init__()
+        # Store Doc constructor
+        self.doc = core.languages.get_doc(self.language)
+        # Store save and loader objs
         self.save = CorpusExporter(self)
         self.load = CorpusImporter(self)
         # Store kwargs in settings dict
@@ -57,13 +60,13 @@ class BaseCorpus(UserList):
         self.update(None, None)
         return self.__class__(new_docs, **self.settings)
 
-    def rm_nonchar(self):
+    def rm_nonchars(self):
         new_docs = []
         counter = 0
         for doc in self.data:
             counter += 1
             self.update('Removing non-characters', counter)
-            new_docs.append(doc.rm_nonchar())
+            new_docs.append(doc.rm_nonchars())
         self.update(None, None)
         return self.__class__(new_docs, **self.settings)
 

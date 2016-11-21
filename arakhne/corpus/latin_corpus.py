@@ -1,10 +1,8 @@
 from .cltk_corpus import CLTKCorpus
-from .latin_doc import LatinDoc
 
 
 class LatinCorpus(CLTKCorpus):
     language = 'latin'
-    doc = LatinDoc
 
     def macronize(self):
         new_docs = []

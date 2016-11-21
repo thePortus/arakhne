@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from ..greek_doc import GreekDoc
@@ -64,3 +65,4 @@ class GreekCorpusUnitTest(unittest.TestCase):
             GreekDoc('κῦρε κάρη, πλῆσεν δὲ θύρας σέλαος θείοιο.')
         ]).scansion()
         return self.assertEqual(True, True)
+"""

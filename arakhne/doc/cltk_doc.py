@@ -31,8 +31,7 @@ class CLTKDoc(NLTKDoc):
                 return_string=return_string,
                 return_raw=return_raw
             ),
-            metadata=self.metadata,
-            stats=self.stats
+            metadata=self.metadata
         )
 
     def scansion(self):

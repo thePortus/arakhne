@@ -10,8 +10,7 @@ class GreekDoc(CLTKDoc):
     def normalize(self):
         return self.__class__(
             cltk_normalize(str(self.data)),
-            self.metadata,
-            self.stats
+            self.metadata
         )
 
     def tlgu_cleanup(self, rm_punctuation=True, rm_periods=False):
@@ -19,8 +18,7 @@ class GreekDoc(CLTKDoc):
             data=tlg_plaintext_cleanup(
                 self.data, rm_punctuation=rm_punctuation, rm_periods=rm_periods
             ),
-            metadata=self.metadata,
-            stats=self.stats
+            metadata=self.metadata
         )
 
     def tag(self, mode='123'):
