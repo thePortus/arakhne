@@ -1,6 +1,7 @@
 import unittest
 
 from .. import Doc
+from ...get import Get
 
 
 class NLTKDocUnitTest(unittest.TestCase):
