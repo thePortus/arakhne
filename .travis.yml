@@ -21,7 +21,7 @@ install:
 script:
   - cd arakhne
   - python -m 'from arakhne.get import Get'
-  - python -m 'Get(\'latin\').trainers()'
+  - python -m 'Get("latin").trainers()'
   - nosetests --with-coverage --cover-package=arakhne
 after_success:
   coveralls
