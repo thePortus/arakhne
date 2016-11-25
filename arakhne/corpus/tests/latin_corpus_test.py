@@ -1,55 +1,35 @@
-"""
 import unittest
 
-from ..latin_doc import LatinDoc
-from ..latin_corpus import LatinCorpus
+from .. import latin
 
 
 class LatinCorpusUnitTest(unittest.TestCase):
+    test = latin().mk_doc(
+        'Cuius rei verisimilis causa adferebatur'
+    )
 
-    def test_functionality(self):
-        test = LatinCorpus([
-            LatinDoc('Cuius rei'),
-            LatinDoc('verisimilis causa'),
-            LatinDoc('adferebatur, quod Gallis')
+    def test_normalize(self):
+        compare = 'Cuius rei uerisimilis causa adferebatur'
+        test = self.test.normalize()[0]
+        return self.assertEqual(test, compare)
+
+    def test_stemmify(self):
+        compare = 'cu re verisimil caus adfereba '
+        test = self.test.stemmify()[0]
+        return self.assertEqual(test, compare)
+
+    # RE-ADD TEST MACRONIZE
+    # def test_macronize(self):
+    #     compare = 'cu re verisimil caus adfereba '
+    #     test = self.test.macronize()[0]
+    #     return self.assertEqual(test, compare)
+
+    def test_clausulae(self):
+        compare = 0
+        test = latin().mk_doc([
+            'rancidum aprum antiqui laudabant, non quia nasus',
+            'illis nullus erat, sed, credo, hac mente, quod hospes',
+            'tardius adveniens vitiatum commodius quam',
         ])
-        compare = 'Cuius rei'
-        return self.assertEqual(test[0], compare)
-"""
-# INDENT FOLLOWING CODE ONE BLOCK
-# Disabled to improve testing time
-"""
-def test_macronize(self):
-    LatinCorpus([
-        LatinDoc('Cuius rei'),
-        LatinDoc('verisimilis causa'),
-        LatinDoc('adferebatur, quod Gallis')
-    ]).macronize()
-    return self.assertEqual(True, True)
-"""
-"""
-def test_normalize(self):
-    LatinCorpus([
-        LatinDoc('Cuius rei'),
-        LatinDoc('verisimilis causa'),
-        LatinDoc('adferebatur, quod Gallis')
-    ]).normalize()
-    return self.assertEqual(True, True)
-
-def test_stemmify(self):
-    LatinCorpus([
-        LatinDoc('Cuius rei'),
-        LatinDoc('verisimilis causa'),
-        LatinDoc('adferebatur, quod Gallis')
-    ]).stemmify()
-    return self.assertEqual(True, True)
-
-def test_clausulae(self):
-    LatinCorpus([
-        LatinDoc('quod superat non est melius quo insumere possis?'),
-        LatinDoc('cur eget indignus quisquam te divite? quare'),
-        LatinDoc('templa ruunt antiqua Deum? cur, inprobe, carae'),
-        LatinDoc('non aliquid patriae tanto emetiris acervo? ')
-    ]).clausulae()
-    return self.assertEqual(True, True)
-"""
+        test = test.clausulae()[0]['cretic + iamb']
+        return self.assertEqual(test, compare)

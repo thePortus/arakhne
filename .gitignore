@@ -8,3 +8,4 @@ __pycache__
 MANIFEST
 *.coverage
 .DS_Store
+tests/fixtures/test_files/*

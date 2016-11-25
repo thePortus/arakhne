@@ -17,16 +17,6 @@ class CLTKCorpus(EnglishCorpus):
         self.update(None, None)
         return self.__class__(new_docs, **self.settings)
 
-    def tlgu_cleanup(self):
-        new_docs = []
-        counter = 0
-        for doc in self.data:
-            counter += 1
-            self.update('Performing TLGU Cleanup', counter)
-            new_docs.append(doc.tlgu_cleanup())
-        self.update(None, None)
-        return self.__class__(new_docs, **self.settings)
-
     def scansion(self):
         new_docs = []
         counter = 0

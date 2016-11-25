@@ -11,7 +11,7 @@ class LanguageChecker(UserList):
 
     def check_lang(self, language):
         valid = False
-        for supported_language in self.data.name:
+        for supported_language in self.data:
             if language == supported_language:
                 valid = True
         return valid
@@ -24,11 +24,3 @@ class LanguageChecker(UserList):
             )
             return False
         return True
-
-    def get_doc(self, language):
-        self.test_lang(language)
-        return settings.LANG_OBJECTS[language]['doc']
-
-    def get_corpus(self, language):
-        self.test_lang(language)
-        return settings.LANG_OBJECTS[language]['corpus']

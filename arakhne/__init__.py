@@ -1,11 +1,15 @@
 from . import core
+from .corpus import Corpus
 
 
 class Arakhne:
     language = None
+    corpus = None
 
-    def __init__(self, language=None):
+    def corpus(self, language=None):
         # Ensure language is a string
         if core.languages.test_lang(language):
-            # Store language at .language
-            self.language = language
+            # If default language not set, store language at .language
+            if not self.language:
+                self.language = language
+        return Corpus(language).make(docs=[])

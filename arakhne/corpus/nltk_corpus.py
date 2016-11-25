@@ -23,16 +23,6 @@ class NLTKCorpus(BaseCorpus):
         self.update(None, None)
         return new_docs
 
-    def rm_stopwords(self, stoplist=[]):
-        new_docs = []
-        counter = 0
-        for doc in self.data:
-            counter += 1
-            self.update('Filtering stopwords', counter)
-            new_docs.append(doc.rm_stopwords(stoplist))
-        self.update(None, None)
-        return self.__class__(new_docs, **self.settings)
-
     def ngrams(self, gram_size=3):
         new_docs = []
         counter = 0

@@ -1,4 +1,3 @@
-"""
 import unittest
 
 from .. import Get, GetNLTK
@@ -14,9 +13,3 @@ class GetUnitTest(unittest.TestCase):
         test = type(Get('english').getter)
         compare = GetNLTK
         return self.assertEqual(test, compare)
-
-    def test_module(self):
-        test = Get('english').module()
-        compare = True
-        return self.assertEqual(test, compare)
-"""
