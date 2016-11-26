@@ -19,7 +19,10 @@ class GetNLTK(GetBase):
         return True
 
     def test_data(self):
-        test_packages = ['punkt']
+        test_packages = [
+            'punkt',
+            'maxent_treebank_pos_'
+        ]
         for test_package in test_packages:
             try:
                 nltk.download(test_package)

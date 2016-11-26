@@ -1,4 +1,2 @@
 -r development.txt
-requests==2.12.1
-docopt==0.6.2
 coveralls==1.1

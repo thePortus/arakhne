@@ -16,7 +16,6 @@ env:
 install:
   - pip install -r requirements/ci-testing.txt
   - pip install .
-  - pip install coveralls
 # command to run tests
 script:
   - cd arakhne
