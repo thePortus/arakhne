@@ -1,4 +1,3 @@
-"""
 import unittest
 
 from .. import Doc
@@ -9,6 +8,14 @@ class NLTKDocUnitTest(unittest.TestCase):
     test = Doc('english').make(
         'The quick brown fox jumped over the lazy dog.'
     )
+
+    @classmethod
+    def setup_class(cls):
+        pass
+
+    @classmethod
+    def teardown_class(cls):
+        pass
 
     def test_tag(self):
         compare = ('The', 'DT')
@@ -23,6 +30,7 @@ class NLTKDocUnitTest(unittest.TestCase):
         test = self.test.tokenize()
         return self.assertEqual(test, compare)
 
+    """
     def test_lemmatize(self):
         compare = 'The quick brown fox jump over the lazy dog .'
         test = self.test.lemmatize()
@@ -42,4 +50,4 @@ class NLTKDocUnitTest(unittest.TestCase):
         compare = ('The', 'quick', 'brown')
         test = self.test.skipgrams()[0]
         return self.assertEqual(test, compare)
-"""
+    """
