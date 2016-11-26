@@ -11,7 +11,7 @@ class NLTKCorpusUnitTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        Get('english').test_data()
+        Get('english').packages()
         return True
 
     @classmethod

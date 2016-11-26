@@ -11,7 +11,7 @@ class CLTKCorpusUnitTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        Get('latin').data()
+        Get('latin').packages()
         return True
 
     @classmethod

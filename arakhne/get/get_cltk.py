@@ -6,7 +6,7 @@ from .get_base import GetBase
 class GetCLTK(GetBase):
     pip_modules = ['cltk']
 
-    def data(self):
+    def packages(self):
         if self.language != 'greek' and self.language != 'latin':
             raise NameError('Language must be Greek or Latin')
         print('Downloading', self.language, 'corpora...')

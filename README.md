@@ -1,6 +1,6 @@
 # Arakhne Text Loom:
 
-<small> Greek and Latin Text Analysis/Scrubbing Optimized for Corpora </small>
+<small>Corpus Analytics for English, Latin, and Greek</small>
 
 *By David J. Thomas, [thePortus.com](http://theportus.com/)*
 
@@ -11,11 +11,11 @@
 
 ---
 
-Scrub and analyze entire files of Greek and Latin text data, working with the corpus just like a list of documents.
+Scrub and analyze CSVs or folders of English, Latin and Greek text data, working with corpora just like a list of documents!
 
 Powered by the [NLTK](http://www.nltk.org/) and [CLTK](https://github.com/cltk/cltk) modules, Arakhne attemps to make the scrubbing and analysis of mass volumes of texts accessible to the Ancient Scholar with minimal Python training. The goal of Arakhne is to allow the user to perform the greatest number of changes in the fewest number of commands possible, all while maintaining semantic clarity.
 
-I created Arakhne Text Loom so that my students, who have limited programming experience, could load, scrub, analyze, and save a large corpus of texts in a few short lines of code.
+My students have great analytical questions, but limited programming experience. They needed to get on with the business of scholarly analysis. So, I created Arakhne so that they could load, scrub, analyze, and save a large corpus of texts in a few short lines of code. Since then, it has gr
 
 The [Natural Language Toolkit](https://nltk.org) has enabled modern text analysis for some years now. Recently, the amazing [Classical Language Toolkit, or CLTK](http://cltk.org), has brought machine language processing to ancient studies. The CLTK library powers the majority of operations behind this module. However, CLTK operations focus on analyzing single bits of text (or other data focused on a single 'document').
 
@@ -51,9 +51,11 @@ Below is the sample raw corpus, used in the following examples.
 ``` bash
 # ========sample.csv ========
 "id","title","text"
-"1","Card 1","αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,\n\n185 βὰν",
-"2","Card 2","200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
-"3","Card 3","... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+"1","Card 1","This is just some sample 
+text",
+"2","Card 2","because lorem ipsum won't work well for english examples."
+"3","Card 3","... so please bare[sic] with this b-
+oring set!"
 ```
 
 
@@ -66,56 +68,58 @@ Importing Arakhne
 
 Setting language and loading a CSV
 ``` python
->>> sample = Arakhne('greek').corpus.load.csv('sample.csv')
-Loading /path/to/sample.csv
+>>> from arakhne import Arakhne
+>>> sample = Arakhne().corpus('english').csv().load('sample.csv')
+Loading /Users/davidthomas/Git/arakhne/sample.csv
 Corpus loaded successfully.
 ```
 
-Specifying a custom column containing text data
+Specifying custom settings by passing a dictionary to the csv method
 ``` python
->>> sample = Arakhne('greek').corpus.load.csv('sample.csv', text_col='a_col')
+>>> from arakhne import Arakhne
+>>> settings={ 'text_col': 'Report' }
+>>> sample = Arakhne().corpus('english').csv(settings).load('sample.csv')
 ```
 
 # Accessing Data
 
 Looping through text documents
 ``` python
->>> for doc in sample:
->>>     print(doc)
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,\n\n185 βὰν"
-"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
-"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
-```
-Accessing document metadata
-``` python
->>> for doc in sample:
->>>     print(doc.metadata)
+
+# Arakhne treats your documents and corpora just like a normal Python list
+print(sample)
+['This is just some sample \ntext', "because lorem ipsum won't work well for english examples.", '...    so please bare[sic] with this b-\noring set!']
+# Access individual elements or splices
+print(sample[0])
+'This is just some sample \ntext'
+# Access document information through the .metadata property
+print(sample[0].metadata)
 {"id": "1", "title": "Card 1"}
-{"id": "2", "title": "Card 2"}
-{"id": "3", "title": "Card 3"}
 ```
 
 # Saving
 Saving corpus data (only CSVs at the moment)
 ``` python
->>> sample.save.csv('sample_scrubbed.csv')
+>>> sample.csv().save('sample_scrubbed.csv')
 Corpus saved sucessfully.
 ```
 Overwriting an existing file
 ``` python
->>> sample.save.csv('sample.csv', overwrite=True)
-Corpus saved sucessfully.
+>>> sample.csv(settings={'overwrite': True}).save('sample.csv')
 ```
 
 ---
 
-## Downloading Trainer Corpora
+## Downloading NLTK/CLTK Requirements (OSX/Linux Only)
 
-Use Arakhne to do a one-time download of NLTK & CLTK trainer sets
+Use Arakhne to downlown necessary Python modules and NLTK/CLTK trainer packages
 ``` python
->>> Arakhne('english').downloader.nltk()
->>> Arakhne('greek').downloader.cltk()
->>> Arakhne('latin').downloader.cltk()
+# Download all requirements
+>>> Arakhne().corpus('english').get.all()
+# Download just the pip module(s)
+>>> Arakhne().corpus('english').get.modules()
+# Download only the relevant NLTK/CLTK corpora/trainer sets
+>>> Arakhne().corpus('english').get.packages()
 ```
 
 ---
@@ -124,100 +128,86 @@ Use Arakhne to do a one-time download of NLTK & CLTK trainer sets
 
 Remove endline chars, collapsing each text to a single line
 ``` python
->>> sample = sample.rm_lines()
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,  185 βὰν"
-"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
-"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+>>> scrubbed_corpus = sample.rm_lines()
+['This is just some sample  text', "because lorem ipsum won't work well for english examples.", '...    so please bare[sic] with this boring set!']
 ```
 Delete editorial statements (i.e. text inside ()[]{}<>, etc).
 ``` python
->>> sample = sample.rm_edits()
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,\n\n185 βὰν"
-"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς ἐδητύος ἠδὲ ποτῆτος"
-"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+>>> scrubbed_corpus = sample.rm_edits()
+['This is just some sample \ntext', "because lorem ipsum won't work well for english examples.", '...    so please bare with this b-\noring set!']
 ```
 Filter non-language specific alphabetic characters
 ``` python
->>> sample = sample.rm_nonchars()
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο, βὰν"
-"ἀλλ᾽ ἀγέλαστος,  ἄπαστυςος ἐδητύος ἠδὲ ποτῆτος"
-" τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα"
+>>> scrubbed_corpus = sample.rm_nonchars()
+['This is just some sample text', 'because lorem ipsum wont work well for english examples', '    so please baresic with this boring set']s
 ```
 Collapse blocks of redundant whitespace and trim leading/trailing spaces
 ``` python
->>> sample = sample.rm_spaces()
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος Κελεοῖο,\n\n185 βὰν"
-"200ἀλλ᾽ ἀγέλαστος, ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
-"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+>>> scrubbed_corpus = sample.rm_spaces()
+['This is just some sample text', "because lorem ipsum won't work well for english examples.", '... so please bare[sic] with this b- oring set!']
 ```
 Filter out docs not containing a Regex search pattern
 ``` python
->>> sample = sample.re_search('μύθων')
-"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+>>> filtered_corpus = sample.re_search('lorem ipsum')
+["because lorem ipsum won't work well for english examples.",]
 ```
 Methods can be chained to perform multi-operation statements
 ``` python
 >>>sample = sample.rm_lines().rm_edits().rm_nonchars().rm_spaces()
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος Κελεοῖο, βὰν"
-"ἀλλ᾽ ἀγέλαστος, ἄπαστυς ἐδητύος ἠδὲ ποτῆτος"
-"τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα"
+['This is just some sample text', 'because lorem ipsum wont work well for english examples', 'so please bare with this boring set']
 ```
 
 ## Text Tools Greek
 
+For the following examples, one sample document is given
+``` python
+'[2]\n       ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ, πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν: Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
+```
+
 Normalize Greek accent issues, otherwise leaving text unchanged
 ``` python
 >>> sample = sample.normalize()
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,  185 βὰν"
-"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
-"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+'[2]\n       ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ, πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν: Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
 ```
 CLTK's TLGU Cleanup auto-scrubs Greek text for analysis
 ``` python
 >>> sample = sample.tlgu_clean_up()
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος Κελεοῖο, βὰν"
-"ἀλλ᾽ ἀγέλαστος, ἄπαστυς ἐδητύος ἠδὲ ποτῆτος"
-"τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα"
+' ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
 ```
 Lemmatize each text, making it easier to search TAKES A LONG TIME
 ``` python
 sample = sample.lemmatize()
-"αἶψα δὲ δώμαθ᾽ ἵκοντο διοτρεφέος  Κελεοῖο,  185 βὰν"
-"200ἀλλ᾽ ἀγέλαστος,  ἄπαστυς[ος] ἐδητύος ἠδὲ ποτῆτος"
-"... τῇσι δὲ μύθων ἦρχεν ἐύζωνος Μετάνειρα:"
+['[ 2 ] ὁ δὲ πειραιεὺς δῆμος μὲν εἰμί ἐκ παλαιόω , πρότερος δὲ πρὶν ἢ θεμιστοκλέης ἀθηναῖος ἄρχω ἐπίνειον οὐ εἰμί : φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστος ἀπέχω ὁ πόλις ὁ θάλασσα—']
 ```
-Perform scansion, returning lists of lines containing beat information
+
+OTHER AVAILABLE TOOLS (TO BE EXPANDED AND IMPROVED)
 ``` python
+# Meter Scansion
 >>> scanned_lines = sample.scansion()
-```
-Generate a list of lists of strings with entities (TO BE EXPANDED)
-``` python
+# Named entity recognition
 >>> entity_list = sample.entities()
-```
-Returns a list of lists of tuple pairs of the word/part of speech
-``` python
+# Part of speech tagging
 >>> parsed_words = sample.tag()
 ```
 
 ## Text Tools Latin
 
-Macronize adds macrons to long vowels
 ``` python
->>> sample = sample.macronize()
-```
-Normalize swaps i's in for j's and u's in for v's
-``` python
->>> sample = sample.normalize()
-```
-Further poetic tool on top of scansion, clausulae analysis
-``` python
->>> clausulae = sample.clausulae()
-```
-Stemmify is alternative to lemmatization, reducing words to stems
-``` python
+# Alternative to lemmatize, reduce words to stems
 >>> sample = sample.stemmify()
+# Normalize swaps i's in for j's and u's in for v's
+>>> sample = sample.normalize()
+# Macronize adds macrons to long vowels
+>>> sample = sample.macronize()
+# Meter Scansion
+>>> scanned_lines = sample.scansion()
+# Further poetic tool on top of scansion, clausulae analysis
+>>> clausulae = sample.clausulae()
+# Named entity recognition
+>>> entity_list = sample.entities()
+# Part of speech tagging
+>>> parsed_words = sample.tag()
 ```
-
 ---
 
 *Further tools and methods to be added*

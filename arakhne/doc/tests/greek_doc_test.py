@@ -11,7 +11,7 @@ class GreekDocUnitTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        Get('greek').data()
+        Get('greek').packages()
         return True
 
     @classmethod

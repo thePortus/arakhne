@@ -8,4 +8,4 @@ __pycache__
 MANIFEST
 *.coverage
 .DS_Store
-tests/fixtures/test_files/*
+fixtures/test_files/test_out.csv

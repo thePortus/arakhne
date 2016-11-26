@@ -4,8 +4,8 @@ from .. import base
 
 
 class CorpusUnitTest(unittest.TestCase):
-    test_in = 'tests/fixtures/prose_latin.csv'
-    test_out = 'tests/fixtures/test_files/test_out.csv'
+    test_in = 'fixtures/prose_latin.csv'
+    test_out = 'fixtures/test_files/test_out.csv'
 
     def test_csv_load(self):
         compare = base
@@ -13,5 +13,6 @@ class CorpusUnitTest(unittest.TestCase):
         return self.assertEqual(test, compare)
 
     def test_csv_save(self):
-        base().csv().save(self.test_out)
+        compare = base().csv().load(self.test_in)
+        test = compare.csv().save(self.test_out)
         return True
