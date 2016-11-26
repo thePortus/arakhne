@@ -197,7 +197,7 @@ Use Arakhne to downlown necessary Python modules and NLTK/CLTK trainer packages
 ``` python
 # 
 >>> sample = sample.()
-# Generate a word (aka token) list
+# Generate a word (aka token)
 >>> tokens = sample.tokenize()
 # Lemmatize the text *MAY TAKE AWHILE*
 >>> sample = sample.lemmatize()
