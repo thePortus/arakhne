@@ -1,13 +1,22 @@
-"""
 import unittest
 
 from .. import Doc
+from ...get import Get
 
 
 class CLTKDocUnitTest(unittest.TestCase):
     test = Doc('latin').make(
         'Cuius rei verisimilis causa adferebatur'
     )
+
+    @classmethod
+    def setUpClass(cls):
+        Get('latin').data()
+        return True
+
+    @classmethod
+    def tearDownClass(cls):
+        return True
 
     def test_tokenize(self):
         compare = ['Cuius', 'rei', 'verisimilis', 'causa', 'adferebatur']
@@ -68,4 +77,3 @@ class CLTKDocUnitTest(unittest.TestCase):
         compare = 0.02197802197802198
         test = string_a.compare_minhash(string_b)
         return self.assertEqual(test, compare)
-"""

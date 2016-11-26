@@ -1,13 +1,22 @@
-"""
 import unittest
 
 from .. import greek
+from ...get import Get
 
 
 class GreekCorpusUnitTest(unittest.TestCase):
     test = greek().mk_doc(
         'ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ'
     )
+
+    @classmethod
+    def setUpClass(cls):
+        Get('greek').data()
+        return True
+
+    @classmethod
+    def tearDownClass(cls):
+        return True
 
     def test_normalize(self):
         compare = 'ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ'
@@ -23,4 +32,3 @@ class GreekCorpusUnitTest(unittest.TestCase):
         compare = ('ὁ', 'P-S---MN-')
         test = self.test.tag()[0][0]
         return self.assertEqual(test, compare)
-"""

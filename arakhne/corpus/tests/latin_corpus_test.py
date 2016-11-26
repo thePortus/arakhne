@@ -1,13 +1,22 @@
-"""
 import unittest
 
 from .. import latin
+from ...get import Get
 
 
 class LatinCorpusUnitTest(unittest.TestCase):
     test = latin().mk_doc(
         'Cuius rei verisimilis causa adferebatur'
     )
+
+    @classmethod
+    def setUpClass(cls):
+        Get('latin').data()
+        return True
+
+    @classmethod
+    def tearDownClass(cls):
+        return True
 
     def test_normalize(self):
         compare = 'Cuius rei uerisimilis causa adferebatur'
@@ -34,4 +43,3 @@ class LatinCorpusUnitTest(unittest.TestCase):
         ])
         test = test.clausulae()[0]['cretic + iamb']
         return self.assertEqual(test, compare)
-"""

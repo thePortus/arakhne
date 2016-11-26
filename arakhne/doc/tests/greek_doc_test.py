@@ -1,13 +1,22 @@
-"""
 import unittest
 
 from .. import Doc
+from ...get import Get
 
 
 class GreekDocUnitTest(unittest.TestCase):
     test = Doc('greek').make(
         'ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ'
     )
+
+    @classmethod
+    def setUpClass(cls):
+        Get('greek').data()
+        return True
+
+    @classmethod
+    def tearDownClass(cls):
+        return True
 
     def test_normalize(self):
         compare = 'ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ'
@@ -28,4 +37,3 @@ class GreekDocUnitTest(unittest.TestCase):
         compare = ('ὁ', 'P-S---MN-')
         test = self.test.tag(mode='tnt')[0]
         return self.assertEqual(test, compare)
-"""
