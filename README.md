@@ -61,22 +61,14 @@ oring set!"
 
 # Loading
 
-Importing Arakhne
-``` python
->>> from arakhne import Arakhne
-```
-
 Setting language and loading a CSV
 ``` python
 >>> from arakhne import Arakhne
 >>> sample = Arakhne().corpus('english').csv().load('sample.csv')
 Loading /Users/davidthomas/Git/arakhne/sample.csv
 Corpus loaded successfully.
-```
 
-Specifying custom settings by passing a dictionary to the csv method
-``` python
->>> from arakhne import Arakhne
+# Use a custom dictionary to specify options like text column
 >>> settings={ 'text_col': 'Report' }
 >>> sample = Arakhne().corpus('english').csv(settings).load('sample.csv')
 ```
@@ -126,33 +118,23 @@ Use Arakhne to downlown necessary Python modules and NLTK/CLTK trainer packages
 
 ## Text Tools All Languages
 
-Remove endline chars, collapsing each text to a single line
 ``` python
+# Remove endline chars, collapsing each text to a single line
 >>> scrubbed_corpus = sample.rm_lines()
 ['This is just some sample  text', "because lorem ipsum won't work well for english examples.", '...    so please bare[sic] with this boring set!']
-```
-Delete editorial statements (i.e. text inside ()[]{}<>, etc).
-``` python
+# Delete editorial statements (i.e. text inside ()[]{}<>, etc).
 >>> scrubbed_corpus = sample.rm_edits()
 ['This is just some sample \ntext', "because lorem ipsum won't work well for english examples.", '...    so please bare with this b-\noring set!']
-```
-Filter non-language specific alphabetic characters
-``` python
+# Filter non-language specific alphabetic characters
 >>> scrubbed_corpus = sample.rm_nonchars()
 ['This is just some sample text', 'because lorem ipsum wont work well for english examples', '    so please baresic with this boring set']s
-```
-Collapse blocks of redundant whitespace and trim leading/trailing spaces
-``` python
+# Collapse blocks of redundant whitespace and trim leading/trailing spaces
 >>> scrubbed_corpus = sample.rm_spaces()
 ['This is just some sample text', "because lorem ipsum won't work well for english examples.", '... so please bare[sic] with this b- oring set!']
-```
-Filter out docs not containing a Regex search pattern
-``` python
+# Filter out docs not containing a Regex search pattern
 >>> filtered_corpus = sample.re_search('lorem ipsum')
 ["because lorem ipsum won't work well for english examples.",]
-```
-Methods can be chained to perform multi-operation statements
-``` python
+# Methods can be chained to perform multi-operation statements
 >>>sample = sample.rm_lines().rm_edits().rm_nonchars().rm_spaces()
 ['This is just some sample text', 'because lorem ipsum wont work well for english examples', 'so please bare with this boring set']
 ```
@@ -162,26 +144,17 @@ Methods can be chained to perform multi-operation statements
 For the following examples, one sample document is given
 ``` python
 '[2]\n       ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ, πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν: Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
-```
-
-Normalize Greek accent issues, otherwise leaving text unchanged
-``` python
+# Normalize Greek accent issues, otherwise leaving text unchanged
 >>> sample = sample.normalize()
 '[2]\n       ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ, πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν: Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
-```
-CLTK's TLGU Cleanup auto-scrubs Greek text for analysis
-``` python
+# CLTK's TLGU Cleanup auto-scrubs Greek text for analysis
 >>> sample = sample.tlgu_clean_up()
 ' ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
-```
-Lemmatize each text, making it easier to search TAKES A LONG TIME
-``` python
+# Lemmatize each text, making it easier to search TAKES A LONG TIME
 sample = sample.lemmatize()
 ['[ 2 ] ὁ δὲ πειραιεὺς δῆμος μὲν εἰμί ἐκ παλαιόω , πρότερος δὲ πρὶν ἢ θεμιστοκλέης ἀθηναῖος ἄρχω ἐπίνειον οὐ εἰμί : φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστος ἀπέχω ὁ πόλις ὁ θάλασσα—']
-```
 
-OTHER AVAILABLE TOOLS (TO BE EXPANDED AND IMPROVED)
-``` python
+# Other Tools (To be significantly expanded/altered in the future)
 # Meter Scansion
 >>> scanned_lines = sample.scansion()
 # Named entity recognition
@@ -199,6 +172,8 @@ OTHER AVAILABLE TOOLS (TO BE EXPANDED AND IMPROVED)
 >>> sample = sample.normalize()
 # Macronize adds macrons to long vowels
 >>> sample = sample.macronize()
+
+# Other Tools (To be significantly expanded/altered in the future)
 # Meter Scansion
 >>> scanned_lines = sample.scansion()
 # Further poetic tool on top of scansion, clausulae analysis
@@ -208,9 +183,6 @@ OTHER AVAILABLE TOOLS (TO BE EXPANDED AND IMPROVED)
 # Part of speech tagging
 >>> parsed_words = sample.tag()
 ```
----
-
-*Further tools and methods to be added*
 
 ---
 
