@@ -31,7 +31,6 @@ class NLTKDocUnitTest(unittest.TestCase):
         test = self.test.tokenize()
         return self.assertEqual(test, compare)
 
-    """
     def test_lemmatize(self):
         compare = 'The quick brown fox jump over the lazy dog .'
         test = self.test.lemmatize()
@@ -51,4 +50,3 @@ class NLTKDocUnitTest(unittest.TestCase):
         compare = ('The', 'quick', 'brown')
         test = self.test.skipgrams()[0]
         return self.assertEqual(test, compare)
-    """
