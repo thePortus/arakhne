@@ -1,13 +1,22 @@
-"""
 import unittest
 
 from .. import english
+from ...get import Get
 
 
 class NLTKCorpusUnitTest(unittest.TestCase):
     test = english().mk_doc(
         '123 The quick [quack] brown  \nfox jumped over the lazy dog.'
     )
+
+    @classmethod
+    def setUpClass(cls):
+        Get('english').test_data()
+        return True
+
+    @classmethod
+    def tearDownClass(cls):
+        return True
 
     def test_tokenize(self):
         compare = [
@@ -31,4 +40,3 @@ class NLTKCorpusUnitTest(unittest.TestCase):
         compare = ('123', 'The', 'quick')
         test = self.test.skipgrams()[0][0]
         return self.assertEqual(test, compare)
-"""
