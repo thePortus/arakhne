@@ -1,3 +1,3 @@
--r base.txt
+-r cltk.txt
 nose==1.3.7
 coverage==4.2
