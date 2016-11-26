@@ -1,6 +1,7 @@
 import nltk
 
 from .get_base import GetBase
+from ...core import settings
 
 
 class GetNLTK(GetBase):
@@ -19,11 +20,7 @@ class GetNLTK(GetBase):
         return True
 
     def test_data(self):
-        test_packages = [
-            'punkt',
-            'maxent_treebank_pos_tagger',
-            'averaged_perceptron_tagger'
-        ]
+        test_packages = settings.NLTK_PACKAGES
         for test_package in test_packages:
             try:
                 nltk.download(test_package)

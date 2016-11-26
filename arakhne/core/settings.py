@@ -32,3 +32,18 @@ CORPORA_ALL = {
     'meta_fields': [],
     'text_col': None
 }
+
+""" =========== REQUIREMENTS/TESTING =========== """
+NLTK_PACKAGES = [
+    'averaged_perceptron_tagger',
+    'hmm_treebank_pos_tagger',
+    'large_grammars',
+    'maxent_ne_chunker',
+    'maxent_treebank_pos_tagger',
+    'punkt',
+    'stopwords',
+    'universal_treebanks_v20',
+    'verbnet',
+    'wordnet',
+    'words'
+]
