@@ -9,12 +9,10 @@ class NLTKDocUnitTest(unittest.TestCase):
         'The quick brown fox jumped over the lazy dog.'
     )
 
-    @classmethod
-    def setup_class(cls):
-        pass
+    def setupAll(self):
+        Get('english').test_data()
 
-    @classmethod
-    def teardown_class(cls):
+    def teardownAll(self):
         pass
 
     def test_tag(self):

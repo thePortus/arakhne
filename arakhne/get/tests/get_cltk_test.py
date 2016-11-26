@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import Get, GetCLTK
@@ -9,3 +10,4 @@ class GetCLTKUnitTest(unittest.TestCase):
         test = Get('latin').trainers()
         compare = True
         return self.assertEqual(test, compare)
+"""
