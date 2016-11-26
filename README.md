@@ -34,6 +34,8 @@ Only Python 3 is supported at this time.
 
 ## Contents
 * [Installation](#installation)
+* [Quick Start](#quick-start)
+* [Languages and Requirements](#languages-and-requirements)
 * [Sample Data](#sample-data)
 * [Loading](#loading)
 * [Accessing Data](#accessing-data)
@@ -54,6 +56,48 @@ pip install arakhne
 
 ---
 
+## Quick Start
+``` python
+# Import Arakhne
+from arakhne import Arakhne
+# Create a non-language specific corpus object
+sample = Arakhne().corpus()
+# Load data from a CSV file
+sample = sample.csv().load('sample.csv')
+# Scrub each doc (note: original corpus is unaltered)
+scrubbed = sample.rm_lines().rm_edits().rm_nonchars().rm_spaces()
+# Save the changes to a new CSV
+scrubbed.csv().save('scrubbed_sample.csv')
+
+# Auto-download & install any requirements for language-specific versions
+Arakhne().corpus('english').get.all()
+```
+
+## Languages and Requirements
+
+The full power of Arakhne comes with the use of the NLTK and CLTK modules to provide advanced operations. Unfortunately these require OSX or Linux as well as necessitate downloading modules and linguistic trainer data.
+
+So, Arakhne offers a 'bare-bones' version which will work on all systems, as well as language-specific versions for OSX/Linux.
+``` python
+# Windows/OSX/Linux Compatible
+universal_corpus = Arakhne().corpus()
+
+# OSX/Linux ONLY
+english_corpus = Arakhne().corpus('english')
+latin_corpus = Arakhne().corpus('latin')
+greek_corpus = Arakhne().corpus('greek')
+```
+
+Getting required packages is easy with Arakhne's .get.all(). *You only need to this once per language*
+``` python
+# To download language-specific requirements
+english_corpus.get.all()
+latin_corpus.get.all()
+greek_corpus.get.all()
+```
+
+---
+
 ## Sample Data
 
 Below is the sample raw corpus, used in the following examples.
@@ -68,7 +112,7 @@ oring set!"
 ```
 
 
-# Loading
+## Loading
 
 Setting language and loading a CSV
 ``` python
@@ -82,7 +126,7 @@ Corpus loaded successfully.
 >>> sample = Arakhne().corpus('english').csv(settings).load('sample.csv')
 ```
 
-# Accessing Data
+## Accessing Data
 
 Looping through text documents
 ``` python
@@ -98,7 +142,7 @@ print(sample[0].metadata)
 {"id": "1", "title": "Card 1"}
 ```
 
-# Saving
+## Saving
 Saving corpus data (only CSVs at the moment)
 ``` python
 >>> sample.csv().save('sample_scrubbed.csv')
@@ -125,7 +169,7 @@ Use Arakhne to downlown necessary Python modules and NLTK/CLTK trainer packages
 
 ---
 
-## Text Tools All Languages
+## Basic Corpus Methods
 
 ``` python
 # Remove endline chars, collapsing each text to a single line
@@ -148,31 +192,22 @@ Use Arakhne to downlown necessary Python modules and NLTK/CLTK trainer packages
 ['This is just some sample text', 'because lorem ipsum wont work well for english examples', 'so please bare with this boring set']
 ```
 
-## Text Tools Greek
+## English Corpus Methods
 
-For the following examples, one sample document is given
 ``` python
-'[2]\n       ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ, πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν: Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
-# Normalize Greek accent issues, otherwise leaving text unchanged
->>> sample = sample.normalize()
-'[2]\n       ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ, πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν: Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
-# CLTK's TLGU Cleanup auto-scrubs Greek text for analysis
->>> sample = sample.tlgu_clean_up()
-' ὁ δὲ Πειραιεὺς δῆμος μὲν ἦν ἐκ παλαιοῦ πρότερον δὲ πρὶν ἢ Θεμιστοκλῆς Ἀθηναίοις ἦρξεν ἐπίνειον οὐκ ἦν Φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστον ἀπέχει τῆς πόλεως ἡ θάλασσα—'
-# Lemmatize each text, making it easier to search TAKES A LONG TIME
-sample = sample.lemmatize()
-['[ 2 ] ὁ δὲ πειραιεὺς δῆμος μὲν εἰμί ἐκ παλαιόω , πρότερος δὲ πρὶν ἢ θεμιστοκλέης ἀθηναῖος ἄρχω ἐπίνειον οὐ εἰμί : φαληρὸν δέ—ταύτῃ γὰρ ἐλάχιστος ἀπέχω ὁ πόλις ὁ θάλασσα—']
-
-# Other Tools (To be significantly expanded/altered in the future)
-# Meter Scansion
->>> scanned_lines = sample.scansion()
-# Named entity recognition
->>> entity_list = sample.entities()
-# Part of speech tagging
->>> parsed_words = sample.tag()
+# 
+>>> sample = sample.()
+# Generate a word (aka token)
+>>> tokens = sample.tokenize()
+# Lemmatize the text *MAY TAKE AWHILE*
+>>> sample = sample.lemmatize()
+# Generate a list of ngram tuples
+>>> ngrams = sample.ngrams()
+# Generate a list of skipgram tuples
+>>> skipgrams = sample.skipgrams()
 ```
 
-## Text Tools Latin
+## Latin Corpus Methods
 
 ``` python
 # Alternative to lemmatize, reduce words to stems
@@ -181,12 +216,27 @@ sample = sample.lemmatize()
 >>> sample = sample.normalize()
 # Macronize adds macrons to long vowels
 >>> sample = sample.macronize()
-
-# Other Tools (To be significantly expanded/altered in the future)
 # Meter Scansion
 >>> scanned_lines = sample.scansion()
 # Further poetic tool on top of scansion, clausulae analysis
 >>> clausulae = sample.clausulae()
+# Named entity recognition
+>>> entity_list = sample.entities()
+# Part of speech tagging
+>>> parsed_words = sample.tag()
+```
+
+## Greek Corpus Methods
+
+``` python
+# Normalize Greek accent issues, otherwise leaving text unchanged
+>>> sample = sample.normalize()
+# CLTK's TLGU Cleanup auto-scrubs Greek text for analysis
+>>> sample = sample.tlgu_clean_up()
+# Lemmatize each text, making it easier to search TAKES A LONG TIME
+>>> sample = sample.lemmatize()
+# Meter Scansion
+>>> scanned_lines = sample.scansion()
 # Named entity recognition
 >>> entity_list = sample.entities()
 # Part of speech tagging
