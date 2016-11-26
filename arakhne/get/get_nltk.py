@@ -1,7 +1,7 @@
 import nltk
 
 from .get_base import GetBase
-from ...core import settings
+from ..core import settings
 
 
 class GetNLTK(GetBase):
