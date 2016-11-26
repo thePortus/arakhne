@@ -24,8 +24,9 @@ As Latinists well know, a *textus* is literally 'something woven.' With Arakhne,
 ---
 
 System Requirements:
-Basic Corpus Scrubbing: Windows / OSX / Linux
-Language Specific Operations: OSX / Linux **ONLY**
+
+* Basic Corpus Scrubbing: Windows / OSX / Linux
+* Language Specific Operations: OSX / Linux **ONLY**
 
 Only Python 3 is supported at this time.
 
