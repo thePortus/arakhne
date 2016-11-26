@@ -15,7 +15,7 @@ Scrub and analyze CSVs or folders of English, Latin and Greek text data, working
 
 Powered by the [NLTK](http://www.nltk.org/) and [CLTK](https://github.com/cltk/cltk) modules, Arakhne attemps to make the scrubbing and analysis of mass volumes of texts accessible to the Ancient Scholar with minimal Python training. The goal of Arakhne is to allow the user to perform the greatest number of changes in the fewest number of commands possible, all while maintaining semantic clarity.
 
-My students have great analytical questions, but limited programming experience. They needed to get on with the business of scholarly analysis. So, I created Arakhne so that they could load, scrub, analyze, and save a large corpus of texts in a few short lines of code. Since then, it has gr
+My students have great analytical questions, but limited programming experience. They needed to get on with the business of scholarly analysis. So, I created Arakhne so that they could load, scrub, analyze, and save a large corpus of texts in a few short lines of code. Since then, it has grown in scope considerably.
 
 The [Natural Language Toolkit](https://nltk.org) has enabled modern text analysis for some years now. Recently, the amazing [Classical Language Toolkit, or CLTK](http://cltk.org), has brought machine language processing to ancient studies. The CLTK library powers the majority of operations behind this module. However, CLTK operations focus on analyzing single bits of text (or other data focused on a single 'document').
 
