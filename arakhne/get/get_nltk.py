@@ -21,7 +21,8 @@ class GetNLTK(GetBase):
     def test_data(self):
         test_packages = [
             'punkt',
-            'maxent_treebank_pos_'
+            'maxent_treebank_pos_tagger',
+            'averaged_perceptron_tagger'
         ]
         for test_package in test_packages:
             try:
