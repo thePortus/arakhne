@@ -6,6 +6,6 @@ from .get_cltk import GetCLTK
 def Get(language):
     if core.languages.test_lang(language):
         if language == 'latin' or language == 'greek':
-            return GetCLTK()
+            return GetCLTK(language)
         if language == 'english':
-            return GetNLTK()
+            return GetNLTK(language)

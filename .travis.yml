@@ -14,8 +14,8 @@ env:
   - PACKAGE_VERSION=0.2.1
 # command to install dependencies
 install:
+  - pip install -r requirements/ci-testing.txt
   - pip install .
-  - pip install -r requirements/production.txt
   - pip install coveralls
 # command to run tests
 script:
