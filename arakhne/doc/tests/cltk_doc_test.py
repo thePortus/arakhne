@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import Doc
@@ -56,7 +57,6 @@ class CLTKDocUnitTest(unittest.TestCase):
         compare = 't,'
         test = string_a.compare_longest_common_substring(string_b)
         return self.assertEqual(test, compare)
-    
 
     def test_compare_minhash(self):
         string_a = Doc('latin').make(
@@ -68,3 +68,4 @@ class CLTKDocUnitTest(unittest.TestCase):
         compare = 0.02197802197802198
         test = string_a.compare_minhash(string_b)
         return self.assertEqual(test, compare)
+"""

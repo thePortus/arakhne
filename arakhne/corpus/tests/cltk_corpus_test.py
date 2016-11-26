@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import latin
@@ -15,3 +16,4 @@ class CLTKCorpusUnitTest(unittest.TestCase):
 
     # ADD TEST LEMMATIZE
     # ADD TEST SCANSION
+"""

@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import english
@@ -30,3 +31,4 @@ class NLTKCorpusUnitTest(unittest.TestCase):
         compare = ('123', 'The', 'quick')
         test = self.test.skipgrams()[0][0]
         return self.assertEqual(test, compare)
+"""

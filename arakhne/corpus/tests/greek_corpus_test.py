@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import greek
@@ -22,3 +23,4 @@ class GreekCorpusUnitTest(unittest.TestCase):
         compare = ('ὁ', 'P-S---MN-')
         test = self.test.tag()[0][0]
         return self.assertEqual(test, compare)
+"""

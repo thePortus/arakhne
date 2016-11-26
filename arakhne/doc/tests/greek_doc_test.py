@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import Doc
@@ -27,3 +28,4 @@ class GreekDocUnitTest(unittest.TestCase):
         compare = ('ὁ', 'P-S---MN-')
         test = self.test.tag(mode='tnt')[0]
         return self.assertEqual(test, compare)
+"""

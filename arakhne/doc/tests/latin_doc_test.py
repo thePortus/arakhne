@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import Doc
@@ -19,3 +20,4 @@ class LatinDocUnitTest(unittest.TestCase):
         return self.assertEqual(test, compare)
 
     # ADD TEST MACRONIZE
+"""

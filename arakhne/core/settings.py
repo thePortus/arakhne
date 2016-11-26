@@ -1,13 +1,12 @@
 
-"""
-LANGUAGES
-"""
+""" =========== LANGUAGES =========== """
+
 # Valid languages
 SUPPORTED_LANGS = [None, 'english', 'latin', 'greek']
 
-"""
-FILES
-"""
+
+""" =========== FILES =========== """
+
 # All files
 FILES_ALL = {
     'path_type': 'relative',
@@ -15,6 +14,7 @@ FILES_ALL = {
     'encoding': 'utf-8',
     'overwrite': True,
 }
+
 # CSV files
 FILES_CSV = FILES_ALL
 FILES_CSV.update({
@@ -24,9 +24,9 @@ FILES_CSV.update({
     'text_col': 'text',
 })
 
-"""
-CORPORA SETTINGS
-"""
+
+""" =========== CORPORA =========== """
+
 # All corpora
 CORPORA_ALL = {
     'meta_fields': [],

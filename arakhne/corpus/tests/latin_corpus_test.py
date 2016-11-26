@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import latin
@@ -33,3 +34,4 @@ class LatinCorpusUnitTest(unittest.TestCase):
         ])
         test = test.clausulae()[0]['cretic + iamb']
         return self.assertEqual(test, compare)
+"""

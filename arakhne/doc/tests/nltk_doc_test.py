@@ -1,3 +1,4 @@
+"""
 import unittest
 
 from .. import Doc
@@ -41,3 +42,4 @@ class NLTKDocUnitTest(unittest.TestCase):
         compare = ('The', 'quick', 'brown')
         test = self.test.skipgrams()[0]
         return self.assertEqual(test, compare)
+"""
