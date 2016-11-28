@@ -5,9 +5,17 @@ except ImportError:
 
 config = {
     'name': "arakhne",
-    'packages': ["arakhne"],
+    'packages': [
+        "arakhne",
+        "arakhne.core",
+        "arakhne.corpus",
+        "arakhne.doc",
+        "arakhne.fixtures",
+        "arakhne.get",
+        "arakhne.tests"
+    ],
     'install_requires': ["nltk", "cltk"],
-    'version': "0.2.2",
+    'version': "0.2.3",
     'description': "Arakhne Text Loom for Corpus-Based Classical-Language Analytics",
     'author': "David J. Thomas",
     'author_email': "dave.a.base@gmail.com",
