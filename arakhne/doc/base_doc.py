@@ -15,11 +15,14 @@ class BaseDoc(UserString):
         return str(self.data)
 
     def rm_lines(self):
+        rexr = re.compile(r'\n+')
+        # substituting single endlines for matching endline blocks
+        clean_text = rexr.sub(' ', self.data)
         return self.__class__(
-            self.data
-                .replace('-\n ', '').replace('- \n', '').replace('-\n', '')
-                .replace(' - ', '').replace('- ', '').replace(' -', '')
-                .replace('\n', ' '),
+            clean_text
+            .replace('-\n ', '').replace('- \n', '').replace('-\n', '')
+            .replace(' - ', '').replace('- ', '').replace(' -', '')
+            .replace('\n', ' '),
             self.metadata
         )
 

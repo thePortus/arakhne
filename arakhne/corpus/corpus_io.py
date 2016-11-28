@@ -59,6 +59,7 @@ class CSVFile(BaseFile):
                 dialect=self.settings['dialect']
             )
             # Build corpus list of metadata column names
+            self.corpus.settings['meta_fields'] = []
             for fieldname in csv_reader.fieldnames:
                 if fieldname != self.settings['text_col']:
                     self.corpus.settings['meta_fields'].append(fieldname)
@@ -85,16 +86,18 @@ class CSVFile(BaseFile):
         path = self.mk_path(path)
         self.test_save(path)
         print('Saving to', path)
+        # Open file with specified settings
         with open(
             path,
             'w+',
             encoding=self.settings['encoding'],
             newline=self.settings['newline']
         ) as csv_file:
+            # Build known field names from metadata fields and text col names
             fieldnames = []
-            print(self.corpus)
             fieldnames.extend(self.corpus.settings['meta_fields'])
             fieldnames.append(self.corpus.settings['text_col'])
+            # Prepare the csv dict writer with specified settings
             csv_writer = csv.DictWriter(
                 csv_file,
                 delimiter=self.settings['delimiter'],
