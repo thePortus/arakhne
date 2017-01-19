@@ -19,7 +19,7 @@ class GreekCorpus(CLTKCorpus):
         counter = 0
         for doc in self.data:
             counter += 1
-            self.update('Performing TLGU Cleanup', counter)
+            self.update('Performing TLGU cleanup', counter)
             new_docs.append(doc.tlgu_cleanup())
         self.update(None, None)
         return self.__class__(new_docs, **self.settings)
@@ -29,7 +29,7 @@ class GreekCorpus(CLTKCorpus):
         counter = 0
         for doc in self.data:
             counter += 1
-            self.update('Lemmatizing', counter)
+            self.update('Tagging parts of speech', counter)
             new_docs.append(doc.tag())
         self.update(None, None)
         return new_docs

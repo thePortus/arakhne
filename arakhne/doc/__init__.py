@@ -1,7 +1,12 @@
+""" Scrubs, transforms, and analyzes individual Arakhne text documents. """
+
 from .base_doc import BaseDoc as base
 from .english_doc import EnglishDoc as english
 from .latin_doc import LatinDoc as latin
 from .greek_doc import GreekDoc as greek
+
+__author__ = 'David J. Thomas <dave.a.base@gmail.com>'
+__license__ = 'MIT License. See LICENSE.'
 
 
 class Doc:

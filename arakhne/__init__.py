@@ -1,15 +1,40 @@
-from . import core
-from .corpus import Corpus
 
+"""
 
-class Arakhne:
-    language = None
-    corpus = None
+===============================================================================
+============================== Arakhne Text Loom ==============================
+===============================================================================
 
-    def corpus(self, language=None):
-        # Ensure language is a string
-        if core.languages.test_lang(language):
-            # If default language not set, store language at .language
-            if not self.language:
-                self.language = language
-        return Corpus(language).make(docs=[])
+Arakhne makes the scrubbing and analysis of mass volumes of texts accessible to
+the Ancient Scholar with minimal Python training. The goal of Arakhne is to
+allow the user to perform the greatest number of changes in the fewest number
+of commands possible, all while maintaining semantic clarity.
+
+For more information, see
+https://github.com/thePortus/arakhne
+
+"""
+
+import sys
+from pkg_resources import get_distribution
+
+from .arakhne import Arakhne
+
+if sys.version_info[0] != 3:
+    raise ImportError('Python Version 3 or above is required for cltk.')
+
+__author__ = 'David J. Thomas'
+
+__copyright__ = 'Copyright (c) 2016 David J. Thomas. Distributed and Licensed under the MIT License.'
+
+__description__ = __doc__
+
+__license__ = 'MIT'
+
+__url__ = 'http://github.com/thePortus/arakhne'
+
+__version__ = get_distribution('arakhne').version  
+
+# Cleaning up namespaces
+del get_distribution
+del sys

@@ -1,2 +1,2 @@
 -r nltk.txt
-cltk==0.1.44
+cltk==0.1.46

@@ -3,7 +3,7 @@ from .english_corpus import EnglishCorpus
 
 class CLTKCorpus(EnglishCorpus):
 
-    def lemmatize(self, return_string=True, return_raw=False):
+    def lemmatize(self, return_string=True, return_raw=False):  # pragma: no cover
         new_docs = []
         counter = 0
         for doc in self.data:
@@ -17,7 +17,7 @@ class CLTKCorpus(EnglishCorpus):
         self.update(None, None)
         return self.__class__(new_docs, **self.settings)
 
-    def scansion(self):
+    def scansion(self):     # pragma: no cover
         new_docs = []
         counter = 0
         for doc in self.data:

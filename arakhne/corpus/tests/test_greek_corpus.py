@@ -1,0 +1,24 @@
+from .test_base_corpus import AbstractTestCorpus
+
+
+class TestGreekCorpus(AbstractTestCorpus):
+    text = 'Ἡροδότου Ἁλικαρνησσέος ἱστορίης ἀπόδεξις ἥδε'
+    language = 'greek'
+
+    def test_normalize(self):
+        self.setup()
+        test = len(self.corpus.normalize())
+        compare = 1
+        return self.assertEqual(test, compare)
+
+    def test_tlgu_cleanup(self):
+        self.setup()
+        test = len(self.corpus.tlgu_cleanup())
+        compare = 1
+        return self.assertEqual(test, compare)
+
+    def test_tag(self):
+        self.setup()
+        test = len(self.corpus.tag())
+        compare = 1
+        return self.assertEqual(test, compare)
