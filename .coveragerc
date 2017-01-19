@@ -1,0 +1,10 @@
+[run]
+source = arakhne
+
+[report]
+show_missing = True
+skip_covered = True
+omit =
+    *arakhne/setup.py
+    *arakhne/settings/*
+    *tests/*

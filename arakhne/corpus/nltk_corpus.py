@@ -21,7 +21,7 @@ class NLTKCorpus(BaseCorpus):
             self.update('Lemmatizing', counter)
             new_docs.append(doc.lemmatize())
         self.update(None, None)
-        return new_docs
+        return self.__class__(docs=new_docs)
 
     def ngrams(self, gram_size=3):
         new_docs = []

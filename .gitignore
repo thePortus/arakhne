@@ -1,11 +1,17 @@
-*.egg-info
+#Python Files
 *.pyc
-*.sublime-*
-dist/
-build/
 __pycache__
-.pypirc
+
+# Build Files
+*.egg-info
 MANIFEST
-*.coverage
+htmlcov
+
+
+# Testing files
+.pypirc
+.coverage
+
+# OSX and Project Files
+*.sublime-*
 .DS_Store
-fixtures/test_files/test_out.csv

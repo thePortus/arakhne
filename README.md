@@ -11,6 +11,10 @@
 
 ---
 
+[Click here to see an example of Arakhne in practice](https://github.com/thePortus/dio/blob/master/arakhne_dio.ipynb)
+
+---
+
 Scrub and analyze CSVs or folders of English, Latin and Greek text data, working with corpora just like a list of documents!
 
 Powered by the [NLTK](http://www.nltk.org/) and [CLTK](https://github.com/cltk/cltk) modules, Arakhne attemps to make the scrubbing and analysis of mass volumes of texts accessible to the Ancient Scholar with minimal Python training. The goal of Arakhne is to allow the user to perform the greatest number of changes in the fewest number of commands possible, all while maintaining semantic clarity.
@@ -34,16 +38,9 @@ Only Python 3 is supported at this time.
 
 ## Contents
 * [Installation](#installation)
-* [Quick Start](#quick-start)
-* [Languages and Requirements](#languages-and-requirements)
-* [Sample Data](#sample-data)
-* [Loading](#loading)
-* [Accessing Data](#accessing-data)
-* [Saving](#saving)
-* [Downloading Trainer Corpora](#downloading-trainer-corpora)
-* [Text Tools: All Languages](#text-tools-all-languages)
-* [Text Tools: Greek](#text-tools-greek)
-* [Text Tools: Latin](#text-tools-latin)
+* [Basic Usage](#basic-usage)
+* [Scrubbing](#scrubbing)
+* [Lemmatizing, Filtering, and Stopwords](#lemmatizing-filtering-and-stopwords)
 * [License](#license)
 
 ---
@@ -56,191 +53,76 @@ pip install arakhne
 
 ---
 
-## Quick Start
+[Click here to see an example of Arakhne in practice](https://github.com/thePortus/dio/blob/master/arakhne_dio.ipynb)
+
+---
+
+## Basic Usage
 ``` python
-# Import Arakhne
 from arakhne import Arakhne
-# Create a non-language specific corpus object
-sample = Arakhne().corpus()
-# Load data from a CSV file
-sample = sample.csv().load('sample.csv')
-# Scrub each doc (note: original corpus is unaltered)
-scrubbed = sample.rm_lines().rm_edits().rm_nonchars().rm_spaces()
-# Save the changes to a new CSV
-scrubbed.csv().save('scrubbed_sample.csv')
 
-# Auto-download & install any requirements for language-specific versions
-Arakhne().corpus('english').get.all()
-```
+# Load a corpus from a CSV
+cassius_dio = Arakhne('greek').csv().load('dio_raw.csv')
+# Perform on operation on the entire corpus
+cassius_dio = cassius_dio.rm_lines()
+# Save a corpus
+cassius_dio.csv().save('dio_raw_backup.csv')
 
-## Languages and Requirements
-
-The full power of Arakhne comes with the use of the NLTK and CLTK modules to provide advanced operations. Unfortunately these require OSX or Linux as well as necessitate downloading modules and linguistic trainer data.
-
-So, Arakhne offers a 'bare-bones' version which will work on all systems, as well as language-specific versions for OSX/Linux.
-``` python
-# Windows/OSX/Linux Compatible
-universal_corpus = Arakhne().corpus()
-
-# OSX/Linux ONLY
-english_corpus = Arakhne().corpus('english')
-latin_corpus = Arakhne().corpus('latin')
-greek_corpus = Arakhne().corpus('greek')
-```
-
-Getting required packages is easy with Arakhne's .get.all(). *You only need to this once per language*
-``` python
-# To download language-specific requirements
-english_corpus.get.all()
-latin_corpus.get.all()
-greek_corpus.get.all()
+# Or load, transform, and save, all in one line
+Arakhne('greek').csv().load('dio_raw.csv').rm_lines().csv().save('dio_new.csv')
 ```
 
 ---
 
-## Sample Data
-
-Below is the sample raw corpus, used in the following examples.
-``` bash
-# ========sample.csv ========
-"id","title","text"
-"1","Card 1","This is just some sample 
-text",
-"2","Card 2","because lorem ipsum won't work well for english examples."
-"3","Card 3","... so please bare[sic] with this b-
-oring set!"
-```
-
-
-## Loading
-
-Setting language and loading a CSV
+## Scrubbing
 ``` python
->>> from arakhne import Arakhne
->>> sample = Arakhne().corpus('english').csv().load('sample.csv')
-Loading /Users/davidthomas/Git/arakhne/sample.csv
-Corpus loaded successfully.
+# Removes all endline characters
+cassius_dio = cassius_dio.rm_lines()
+# Removes texts between editorial marks, e.g. []{}()<>, etc.
+cassius_dio = cassius_dio.rm_edits()
+# Removes characters not belonging to the specified language
+cassius_dio = cassius_dio.rm_nonchars()
+# Normalize certain Greek accent character encoding issues
+cassius_dio = cassius_dio.normalize()
+# Removes redundant whitespace (often created by the above operations)
+cassius_dio = cassius_dio.rm_spaces()
 
-# Use a custom dictionary to specify options like text column
->>> settings={ 'text_col': 'Report' }
->>> sample = Arakhne().corpus('english').csv(settings).load('sample.csv')
-```
-
-## Accessing Data
-
-Looping through text documents
-``` python
-
-# Arakhne treats your documents and corpora just like a normal Python list
-print(sample)
-['This is just some sample \ntext', "because lorem ipsum won't work well for english examples.", '...    so please bare[sic] with this b-\noring set!']
-# Access individual elements or splices
-print(sample[0])
-'This is just some sample \ntext'
-# Access document information through the .metadata property
-print(sample[0].metadata)
-{"id": "1", "title": "Card 1"}
-```
-
-## Saving
-Saving corpus data (only CSVs at the moment)
-``` python
->>> sample.csv().save('sample_scrubbed.csv')
-Corpus saved sucessfully.
-```
-Overwriting an existing file
-``` python
->>> sample.csv(settings={'overwrite': True}).save('sample.csv')
+# Or, chain them together to perform multiple operations
+cassius_dio = cassius_dio.rm_lines().rm_edits().rm_nonchars().rm_spaces()
 ```
 
 ---
 
-## Downloading NLTK/CLTK Requirements (OSX/Linux Only)
+## Lemmatizing, Filtering, and Stopwords
 
-Use Arakhne to downlown necessary Python modules and NLTK/CLTK trainer packages
 ``` python
-# Download all requirements
->>> Arakhne().corpus('english').get.all()
-# Download just the pip module(s)
->>> Arakhne().corpus('english').get.modules()
-# Download only the relevant NLTK/CLTK corpora/trainer sets
->>> Arakhne().corpus('english').get.packages()
+# Create a lemmatized version for indexing purposes
+lemmatized_dio = cassius_dio.lemmatize()
+
+# Create a filtered corpus containing only passages matching a Regex pattern
+filtered_dio = stopped_dio.re_search('πολλοί')
+
+# Pass a list to remove specified words
+stopped_dio = cassius_dio.rm_stopwords(['ὁ', 'δὲ', 'ὅτι'])
+
+# Using language default stopwords
+stopped_dio = cassius_dio.rm_stopwords()
+
+# Or using a specified plaintext list of stop phrases
+stopped_dio = cassius_dio.set_stopwords('stopwords_greek.txt').rm_stopwords()
 ```
 
 ---
 
-## Basic Corpus Methods
+## Tagging and Named Entity Recognition
 
 ``` python
-# Remove endline chars, collapsing each text to a single line
->>> scrubbed_corpus = sample.rm_lines()
-['This is just some sample  text', "because lorem ipsum won't work well for english examples.", '...    so please bare[sic] with this boring set!']
-# Delete editorial statements (i.e. text inside ()[]{}<>, etc).
->>> scrubbed_corpus = sample.rm_edits()
-['This is just some sample \ntext', "because lorem ipsum won't work well for english examples.", '...    so please bare with this b-\noring set!']
-# Filter non-language specific alphabetic characters
->>> scrubbed_corpus = sample.rm_nonchars()
-['This is just some sample text', 'because lorem ipsum wont work well for english examples', '    so please baresic with this boring set']s
-# Collapse blocks of redundant whitespace and trim leading/trailing spaces
->>> scrubbed_corpus = sample.rm_spaces()
-['This is just some sample text', "because lorem ipsum won't work well for english examples.", '... so please bare[sic] with this b- oring set!']
-# Filter out docs not containing a Regex search pattern
->>> filtered_corpus = sample.re_search('lorem ipsum')
-["because lorem ipsum won't work well for english examples.",]
-# Methods can be chained to perform multi-operation statements
->>>sample = sample.rm_lines().rm_edits().rm_nonchars().rm_spaces()
-['This is just some sample text', 'because lorem ipsum wont work well for english examples', 'so please bare with this boring set']
-```
 
-## English Corpus Methods
+# Returns list of lists, each containing tuples of the word and part of speech
+tagged_dio = scrubbed_dio.tag()
 
-``` python
-# 
->>> sample = sample.()
-# Generate a word (aka token)
->>> tokens = sample.tokenize()
-# Lemmatize the text *MAY TAKE AWHILE*
->>> sample = sample.lemmatize()
-# Generate a list of ngram tuples
->>> ngrams = sample.ngrams()
-# Generate a list of skipgram tuples
->>> skipgrams = sample.skipgrams()
-```
-
-## Latin Corpus Methods
-
-``` python
-# Alternative to lemmatize, reduce words to stems
->>> sample = sample.stemmify()
-# Normalize swaps i's in for j's and u's in for v's
->>> sample = sample.normalize()
-# Macronize adds macrons to long vowels
->>> sample = sample.macronize()
-# Meter Scansion
->>> scanned_lines = sample.scansion()
-# Further poetic tool on top of scansion, clausulae analysis
->>> clausulae = sample.clausulae()
-# Named entity recognition
->>> entity_list = sample.entities()
-# Part of speech tagging
->>> parsed_words = sample.tag()
-```
-
-## Greek Corpus Methods
-
-``` python
-# Normalize Greek accent issues, otherwise leaving text unchanged
->>> sample = sample.normalize()
-# CLTK's TLGU Cleanup auto-scrubs Greek text for analysis
->>> sample = sample.tlgu_clean_up()
-# Lemmatize each text, making it easier to search TAKES A LONG TIME
->>> sample = sample.lemmatize()
-# Meter Scansion
->>> scanned_lines = sample.scansion()
-# Named entity recognition
->>> entity_list = sample.entities()
-# Part of speech tagging
->>> parsed_words = sample.tag()
+# Returns list of lists, each containing strings with entity names
+entities_dio = scrubbed_dio.entities()
 ```
 
 ---
