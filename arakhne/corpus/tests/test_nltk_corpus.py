@@ -6,25 +6,25 @@ class TestNLTKCorpus(AbstractTestCorpus):
     language = 'english'
 
     def test_tokenize_word(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.tokenize())
         compare = 1
         return self.assertEqual(test, compare)
 
     def test_lemmatize(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.lemmatize())
         compare = 1
         return self.assertEqual(test, compare)
 
     def test_ngrams(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.ngrams())
         compare = 1
         return self.assertEqual(test, compare)
 
     def test_skipgrams(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.skipgrams())
         compare = 1
         return self.assertEqual(test, compare)

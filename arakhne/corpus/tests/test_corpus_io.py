@@ -12,13 +12,13 @@ class AbstractTestIO(unittest.TestCase):
     language = 'english'
     text = 'The\nquick bro-\nwn fox   jumped ov3r[sic] the lazy dog.'
 
-    def setup(self):
+    def ready(self):
         self.corpus = Corpus(self.language).make().mk_doc(self.text)
 
 
 class TestCSVIO(AbstractTestIO):
 
     def test_load(self):
-        self.setup()
+        self.ready()
         self.corpus.csv().load(self.file_in)
         return True

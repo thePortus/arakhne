@@ -99,3 +99,5 @@ PACKAGES = {
         ]
     }
 }
+
+OBSOLETE_CLTK_PACKAGES = ['phi5', 'phi7', 'tlg']

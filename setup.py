@@ -16,7 +16,7 @@ config = {
         "arakhne.stopwords"
     ],
     'install_requires': ["nltk", "cltk"],
-    'version': "0.3.0",
+    'version': "0.3.1",
     'description': "Arakhne Classical Text Loom for Corpus-Based Analytics",
     'author': "David J. Thomas",
     'author_email': "dave.a.base@gmail.com",
