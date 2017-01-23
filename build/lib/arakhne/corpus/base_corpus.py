@@ -1,26 +1,25 @@
 import sys
 from collections import UserList
 
-from .. import core
-from ..doc import Doc
-from .corpus_io import CorpusIO
-from ..get import Get
+from arakhne.settings import Defaults
+from arakhne.doc import Doc
+from .files import CorpusIO
+from arakhne.stopwords import Stopwords
 
 
 class BaseCorpus(UserList):
     language = None
     settings = {}
+    stopwords = None
 
     def __init__(self, docs=None, *args, **kwargs):
         super().__init__()
         # Set defaults and update with passed kwargs
-        self.settings = core.settings.CORPORA_ALL
+        self.settings = Defaults.CORPORA_ALL
         if kwargs is not None:
             self.settings.update(kwargs)
         if docs:
             self.data = docs
-        # Create module & trainer importer for language
-        self.get = Get(self.language)
 
     @property
     def len(self):
@@ -85,6 +84,16 @@ class BaseCorpus(UserList):
         return self.__class__(new_docs, **self.settings)
 
     def rm_stopwords(self, stoplist=[]):
+        # If no list, gets corpus stopwords
+        if not stoplist:
+            # Load defaults if no corpus stopwords set
+            if not self.stopwords:
+                self.set_stopwords(path=None)
+            # Set corpus stopwords
+            stoplist = self.stopwords
+        # If a str with a filepath passed instead of list, load stopfile
+        if type(stoplist) == str:
+            self.set_stopwords(path=stoplist)
         new_docs = []
         counter = 0
         for doc in self.data:
@@ -105,6 +114,10 @@ class BaseCorpus(UserList):
                 new_docs.append(doc)
         self.update(None, None)
         return self.__class__(new_docs, **self.settings)
+
+    def set_stopwords(self, path=None):
+        self.stopwords = Stopwords(path=path, language=self.language)
+        return self
 
     def mk_doc(self, text, metadata={}):
         self.append(Doc(self.language).make(text, metadata=metadata))

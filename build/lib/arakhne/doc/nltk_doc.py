@@ -51,7 +51,7 @@ class NLTKDoc(BaseDoc):
         for word in tokens:
             not_found = True
             for stopword in stoplist:
-                if str(word) == str(stopword):
+                if str(word).strip().lower() == str(stopword).strip().lower():
                     not_found = False
             if not_found:
                 filtered_words.append(word)
@@ -63,13 +63,13 @@ class NLTKDoc(BaseDoc):
 
     def ngrams(self, gram_size=3):
         tokens = self.tokenize()
-        if gram_size < 2:
+        if gram_size < 2:   # pragma: no cover
             gram_size = 2
-        if gram_size == 2:
+        if gram_size == 2:  # pragma: no cover
             return list(bigrams(tokens))
         if gram_size == 3:
             return list(trigrams(tokens))
-        else:
+        else:   # pragma: no cover
             return list(ngrams(tokens, gram_size))
 
     def skipgrams(self, gram_size=3, skip_size=1):

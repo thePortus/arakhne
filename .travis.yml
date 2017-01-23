@@ -11,8 +11,7 @@ os: linux
 dist: precise
 # setting environment variables
 env:
-  - PACKAGE_VERSION=0.3.0
-  - ARAKHNE_TEST_FIXTURES="arakhne/tests/fixtures"
+  - PACKAGE_VERSION=0.3.0 ARAKHNE_TEST_FIXTURES="arakhne/tests/fixtures"
 # command to install dependencies
 install:
   - pip install -r requirements/ci-testing.txt
