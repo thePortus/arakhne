@@ -1,9 +1,10 @@
 from .test_base_doc import AbstractTestDoc
-
+from ...tests import EnglishFixtureLayer
 
 class TestNLTKDoc(AbstractTestDoc):
     text = 'The\nquick bro-\nwn fox   jumped ov3r[sic] the lazy dog.'
     language = 'english'
+    layer = EnglishFixtureLayer
 
     def test_tokenize_word(self):
         self.ready()

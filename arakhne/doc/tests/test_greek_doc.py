@@ -1,9 +1,11 @@
 from .test_base_doc import AbstractTestDoc
+from ...tests import GreekFixtureLayer
 
 
 class TestGreekDoc(AbstractTestDoc):
     text = 'Ἡροδότου Ἁλικαρνησσέος ἱστορίης ἀπόδεξις ἥδε'
     language = 'greek'
+    layer = GreekFixtureLayer
 
     def test_normalize(self):
         self.ready()

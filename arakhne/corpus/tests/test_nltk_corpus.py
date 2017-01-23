@@ -1,9 +1,10 @@
 from .test_base_corpus import AbstractTestCorpus
-
+from ...tests import EnglishFixtureLayer
 
 class TestNLTKCorpus(AbstractTestCorpus):
     text = 'The\nquick bro-\nwn fox   jumped ov3r[sic] the lazy dog.'
     language = 'english'
+    layer = EnglishFixtureLayer
 
     def test_tokenize_word(self):
         self.ready()
