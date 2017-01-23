@@ -6,13 +6,13 @@ class TestLatinCorpus(AbstractTestCorpus):
     language = 'latin'
 
     def test_normalize(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.normalize())
         compare = 1
         return self.assertEqual(test, compare)
 
     def test_stemmify(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.stemmify())
         compare = 1
         return self.assertEqual(test, compare)

@@ -43,12 +43,15 @@ class BaseValidator:
                 importlib.find_loader(module)
             except:
                 needed.append(module)
-        # Return needed modules
-        return needed
+        # Return needed packages
+        if len(needed) > 0:
+            return needed
+        else:
+            return False
 
     def packages(self):
-        # Returns True as the base Validator needs no packages
-        return []
+        # Returns False as the base Validator needs no packages
+        return False
 
 
 class NLTKValidator(BaseValidator):
@@ -66,7 +69,10 @@ class NLTKValidator(BaseValidator):
             except:
                 needed.append(required[0])
         # Return needed packages
-        return needed
+        if len(needed) > 0:
+            return needed
+        else:
+            return False
 
 
 class CLTKValidator(BaseValidator):
@@ -77,11 +83,12 @@ class CLTKValidator(BaseValidator):
     def packages(self):
         from cltk.corpus.utils.importer import CLTK_DATA_DIR
         needed = []
+        root_location = os.path.expanduser(CLTK_DATA_DIR + '/' + self.language)
         module_name = 'cltk.corpus.' + self.language + '.corpora'
         # Dynamically loading corpus attribute from module
         corpus_module = importlib.import_module(module_name)
         corpora = getattr(corpus_module, self.language.upper() + '_CORPORA')
-        root_location = os.path.expanduser(CLTK_DATA_DIR + '/' + self.language)
+        corpora = [corpus for corpus in corpora if corpus not in setup.OBSOLETE_CLTK_PACKAGES]
         # Check each corpus
         for required in corpora:
             # Building expected installation location
@@ -92,4 +99,8 @@ class CLTKValidator(BaseValidator):
             )
             if not os.path.isdir(location):
                 needed.append(required['name'])
-        return needed
+        # Return needed packages
+        if len(needed) > 0:
+            return needed
+        else:
+            return False

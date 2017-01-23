@@ -6,19 +6,19 @@ class TestGreekCorpus(AbstractTestCorpus):
     language = 'greek'
 
     def test_normalize(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.normalize())
         compare = 1
         return self.assertEqual(test, compare)
 
     def test_tlgu_cleanup(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.tlgu_cleanup())
         compare = 1
         return self.assertEqual(test, compare)
 
     def test_tag(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.tag())
         compare = 1
         return self.assertEqual(test, compare)

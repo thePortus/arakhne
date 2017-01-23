@@ -32,12 +32,13 @@ class BaseInstall:
         self.language = language
         self.validator = Validate(self.language)
 
-    def modules(self):
+    def modules(self, needed):
         needed = self.validator.modules()
-        if len(needed) > 0:     # pragma: no cover
-            print('Python modules required to continue, downloading...')
-            for module in needed:
-                pip.main(['install', module])
+        if type(needed) == list:     # pragma: no cover
+            if len(needed) > 0:
+                print('Python modules required to continue, downloading...')
+                for module in needed:
+                    pip.main(['install', module])
         return True
 
     def packages(self):
@@ -49,36 +50,29 @@ class BaseInstall:
 
 class NLTKInstall(BaseInstall):
 
-    def packages(self):
+    def packages(self, needed):
         # Inline import to prevent Exception for non NLTK users
         import nltk
-        needed = self.validator.packages()
-        if len(needed) > 0:     # pragma: no cover
-            print('NLTK trainer data required to continue, downloading...')
-            for package in needed:
-                nltk.download(package)
+        if type(needed) == list:
+            if len(needed) > 0:
+                print('NLTK trainer data required to continue, downloading...')
+                for package in needed:
+                    nltk.download(package)
         return True
 
 
 class CLTKInstall(BaseInstall):
 
-    def packages(self):
+    def packages(self, needed):
         # Inline import to prevent Exception for non CLTK users
         from cltk.corpus.utils.importer import CorpusImporter
-        # Get list of needed trainers, if any
-        needed = self.validator.packages()
-        if (
-            len(needed) > 0 and
-            # Greek - ignore if only obsolete packages
-            needed != ['phi7', 'tlg'] and
-            # Latin - ignore if only obsolete packages
-            needed != ['phi5', 'phi7']
-        ):  # pragma: no cover
-            print('CLTK trainer data required to continue, downloading...')
-            for package in needed:
-                try:
-                    CorpusImporter(self.language).import_corpus(package)
-                except AttributeError:
-                    # Bypass exceptions caused by obsolete corpora
-                    pass
+        if type(needed) == list:
+            if len(needed) > 0:
+                print('CLTK trainer data required to continue, downloading...')
+                for package in needed:
+                    try:
+                        CorpusImporter(self.language).import_corpus(package)
+                    except AttributeError:
+                        # Bypass exceptions caused by obsolete corpora
+                        pass
         return True

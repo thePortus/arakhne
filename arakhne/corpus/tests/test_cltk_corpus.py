@@ -6,22 +6,21 @@ class TestCLTKCorpus(AbstractTestCorpus):
     language = 'latin'
 
     def test_entities(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.entities())
         compare = 1
         return self.assertEqual(test, compare)
 
     """
     def test_lemmatize(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.lemmatize())
         compare = 1
         return self.assertEqual(test, compare)
 
     def test_scansion(self):
-        self.setup()
+        self.ready()
         test = len(self.corpus.scansion())
         compare = 1
         return self.assertEqual(test, compare)
     """
-    
