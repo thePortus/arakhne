@@ -1,6 +1,5 @@
 from .test_base_corpus import AbstractTestCorpus
 
-
 class TestGreekCorpus(AbstractTestCorpus):
     text = 'Ἡροδότου Ἁλικαρνησσέος ἱστορίης ἀπόδεξις ἥδε'
     language = 'greek'

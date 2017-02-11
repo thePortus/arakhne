@@ -18,11 +18,11 @@ class CLTKDoc(NLTKDoc):
         if mode == 'sentence':
             return TokenizeSentence(
                 self.language
-            ).tokenize_sentences(self.text)
+            ).tokenize_sentences(self.data)
         else:
             return nltk_tokenize_words(self.data)
 
-    def lemmatize(self, return_string=True, return_raw=False):
+    def lemmatize(self, return_string=True, return_raw=False):  # pragma: no cover
         return self.__class__(
             data=LemmaReplacer(
                 self.language
@@ -34,7 +34,7 @@ class CLTKDoc(NLTKDoc):
             metadata=self.metadata
         )
 
-    def scansion(self):
+    def scansion(self):     # pragma: no cover
         if self.language == 'greek':
             return GreekScansion().scan_text(self.data)
         if self.language == 'latin':
@@ -76,8 +76,12 @@ class CLTKDoc(NLTKDoc):
     def compare_minhash(self, other_text):
         return minhash(self.data, other_text)
 
-    def word_count(self, mode='cltk'):
+    def word_count(self, word=None, mode='cltk'):
         if mode == 'nltk':
-            return dict(Text(self.tokenize()).vocab())
+            counts = dict(Text(self.tokenize()).vocab())
         else:
-            return Frequency().counter_from_str(self.data)
+            counts = Frequency().counter_from_str(self.data)
+        # If a single word was specified, only return that frequency
+        if word:
+            return counts[word]
+        return counts

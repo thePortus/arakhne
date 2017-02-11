@@ -24,12 +24,11 @@ class GreekDoc(CLTKDoc):
     def tag(self, mode='123'):
         tagger = POSTag(self.language)
         mode = mode.lower()
-        if mode != '123' and mode != 'tnt' and mode != 'crf':
-            print('Error: invalid part of speech tagging mode specified.')
-            return False
+        if mode != '123' and mode != 'tnt':
+            raise Exception(
+                'Invalid part of speech tagging mode specified.'
+            )
         elif mode == '123':
             return tagger.tag_ngram_123_backoff(self.data)
         elif mode == 'tnt':
             return tagger.tag_tnt(self.data)
-        else:
-            return tagger.tag_crf(self.data)

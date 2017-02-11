@@ -6,6 +6,8 @@ __pycache__
 *.egg-info
 MANIFEST
 htmlcov
+build
+dist
 
 
 # Testing files

@@ -28,7 +28,7 @@ class BaseDoc(UserString):
 
     def rm_nonchars(self):
         # If greek, only keep polytonic greek chars
-        if self.language == 'greek':
+        if self.language == 'greek':    # pragma: no cover
             clean_text = "".join(re.findall("([ʹ-Ϋά-ϡἀ-ᾯᾰ-῾ ])", self.data))
         # In all other cases, trim all but latin chars
         else:

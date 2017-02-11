@@ -1,6 +1,5 @@
 from .test_base_corpus import AbstractTestCorpus
 
-
 class TestNLTKCorpus(AbstractTestCorpus):
     text = 'The\nquick bro-\nwn fox   jumped ov3r[sic] the lazy dog.'
     language = 'english'

@@ -1,6 +1,5 @@
 from .test_base_corpus import AbstractTestCorpus
 
-
 class TestCLTKCorpus(AbstractTestCorpus):
     text = 'Omnia gallia\nin tres part-\nes divisa est.'
     language = 'latin'

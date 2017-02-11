@@ -8,7 +8,7 @@ from cltk.stem.latin.stem import Stemmer
 class LatinDoc(CLTKDoc):
     language = 'latin'
 
-    def macronize(self, mode='tag_ngram_123_backoff'):
+    def macronize(self, mode='tag_ngram_123_backoff'):  # pragma: no cover
         mode = mode.lower()
         if (
             mode != 'tag_ngram_123_backoff' and
@@ -33,5 +33,5 @@ class LatinDoc(CLTKDoc):
             self.metadata
         )
 
-    def clausulae(self):
+    def clausulae(self):    # pragma: no cover
         return Clausulae().clausulae_analysis(self.data)
