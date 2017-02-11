@@ -2,14 +2,17 @@ import unittest
 
 from ... import Arakhne
 from .. import Corpus
-from ...tests import BaseFixtureLayer
 
 
 class AbstractTestCorpus(unittest.TestCase):
     text = None
     language = None
     corpus = None
-    layer = BaseFixtureLayer
+
+    @setup
+    def check_dependencies(self):
+        Arakhne(self.language)
+        return True
 
     def ready(self):
         self.corpus = Corpus(self.language).make().mk_doc(self.text)

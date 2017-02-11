@@ -1,4 +1,3 @@
-
 """Arakhne
 
 ===============================================================================
@@ -38,10 +37,11 @@ __version__ = get_distribution('arakhne').version
 
 
 def Arakhne(language=None):
-    if not Setup(language=language).setup():
-        raise Exception('Problem encountered during setup.')
+    # if not Setup(language=language).setup():
+    #     raise Exception('Problem encountered during setup.')
     # Return an empty corpus of appropriate language
     return Corpus(language).make()
+
 
 # Cleaning up namespaces
 del get_distribution

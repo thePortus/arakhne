@@ -1,10 +1,8 @@
 from .test_base_corpus import AbstractTestCorpus
-from ...tests import GreekFixtureLayer
 
 class TestGreekCorpus(AbstractTestCorpus):
     text = 'Ἡροδότου Ἁλικαρνησσέος ἱστορίης ἀπόδεξις ἥδε'
     language = 'greek'
-    layer = GreekFixtureLayer
 
     def test_normalize(self):
         self.ready()

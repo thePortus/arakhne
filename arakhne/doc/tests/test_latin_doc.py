@@ -1,11 +1,9 @@
 from .test_base_doc import AbstractTestDoc
-from ...tests import LatinFixtureLayer
 
 
 class TestLatinDoc(AbstractTestDoc):
     text = 'Omnia gallia\nin tres part-\nes divisa est.'
     language = 'latin'
-    layer = LatinFixtureLayer
 
     def test_normalize(self):
         self.ready()

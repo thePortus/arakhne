@@ -2,14 +2,17 @@ import unittest
 
 from ... import Arakhne
 from .. import Doc
-from ...tests import BaseFixtureLayer
 
 
 class AbstractTestDoc(unittest.TestCase):
     text = None
     language = None
     doc = None
-    layer = BaseFixtureLayer
+
+    @setup
+    def check_dependencies(self):
+        Arakhne(self.language)
+        return True
 
     def ready(self):
         self.doc = Doc(self.language).make(self.text)
