@@ -1,5 +1,4 @@
-
-"""
+"""Arakhne
 
 ===============================================================================
 ============================== Arakhne Text Loom ==============================
@@ -18,7 +17,8 @@ https://github.com/thePortus/arakhne
 import sys
 from pkg_resources import get_distribution
 
-from .arakhne import Arakhne
+from .setup import Setup
+from .corpus import Corpus
 
 if sys.version_info[0] != 3:
     raise ImportError('Python Version 3 or above is required for cltk.')
@@ -33,7 +33,15 @@ __license__ = 'MIT'
 
 __url__ = 'http://github.com/thePortus/arakhne'
 
-__version__ = get_distribution('arakhne').version  
+__version__ = get_distribution('arakhne').version
+
+
+def Arakhne(language=None):
+    # if not Setup(language=language).setup():
+    #     raise Exception('Problem encountered during setup.')
+    # Return an empty corpus of appropriate language
+    return Corpus(language).make()
+
 
 # Cleaning up namespaces
 del get_distribution
