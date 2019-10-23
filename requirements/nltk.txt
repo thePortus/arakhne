@@ -1,2 +1,2 @@
 -r base.txt
-nltk==3.2.1
+nltk==3.4.5
